@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const app = express();
-app.use(cors())
+app.use(cors());
+require('dotenv').config();
 const PORT = 8080;
 
 app.get('/input/:text', (request, response) => {
@@ -12,7 +13,7 @@ app.get('/input/:text', (request, response) => {
 
 app.get('/post', (request, response) => {
     (async () => {
-        const myHeaders = {'Authorization':`Bearer ${key}`}
+        const myHeaders = {'Authorization':`Bearer ${process.env.KEY}`}
 
         const requestOptions = {
             method: 'GET',
@@ -29,7 +30,7 @@ app.get('/post', (request, response) => {
 app.get('/categories/:text', (request, response) => {
     const  param = request.params.text;
     (async () => {
-        const myHeaders = {'Authorization':`Bearer ${key}`}
+        const myHeaders = {'Authorization':`Bearer ${process.env.KEY}`}
 
         const requestOptions = {
             method: 'GET',
