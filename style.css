@@ -1,0 +1,14 @@
+.resturant_img {
+    width: 200px;
+    height: 200px;
+}
+
+#resturant_cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resturant_card {
+    display: flex;
+    flex-direction: column;
+}

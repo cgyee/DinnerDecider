@@ -28,13 +28,36 @@ async function getFoodbyCategory(s) {
 const button = document.querySelector('#action_button');
 const span = document.querySelector('#target');
 const input = document.querySelector('#select_options');
-// button.addEventListener('click', () => foo())
+const cards = document.querySelector('#resturant_cards');
+const options = document.querySelectorAll('option');
+let categoriesSelected = [];
+
 button.addEventListener('click', async () => {
-    console.log(input.value);
-    const s = input.value;
-    // postman();
-    const resturants = await getFoodbyCategory(s);
-    const resturant = resturants.businesses[0];
-    const resturantName = resturant.name;
-    span.textContent = resturantName;
+
+    while(cards.firstChild) {
+        cards.removeChild(cards.firstChild);
+    }
+    Array.from(options).forEach(category => category.selected & categoriesSelected.push(category.value));
+
+    const category = categoriesSelected[Math.floor(Math.random() * categoriesSelected.length)];
+    const resturants = await getFoodbyCategory(category);
+    
+    for(let i= 0; i < 3; i++) {
+        const resturant = resturants.businesses[i];
+        const resturantName = resturant.name;
+        const resturantImage = resturant.image_url;
+
+        const card = document.createElement('div');
+        card.className = 'resturant_card';
+
+        const img = document.createElement('img');
+        const name = document.createElement('h3');
+
+        img.src = resturantImage;
+        img.className = 'resturant_img';
+        name.textContent = resturantName
+        card.append(img, name);
+        cards.append(card);
+    }
+    
 });
