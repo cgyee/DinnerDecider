@@ -2,7 +2,20 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const app = express();
+const MongoClient = require('mongodb').MongoClient;
+const { response } = require('express');
+const uri = `mongodb+srv://admin:${process.env.dbPASSWORD}@gettingstarted.1jz8f.mongodb.net/${process.env.dbNAME}?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
 app.use(cors());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 require('dotenv').config();
 const PORT = 8080;
 
@@ -42,6 +55,10 @@ app.get('/categories/:text', (request, response) => {
         const res = await data.json()
         response.json(res);
     })()
+});
+
+app.post('/login/attempt', (request, response) => {
+    console.log(request.body);
 })
 
 app.listen(process.env.PORT || PORT, () => {
