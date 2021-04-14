@@ -58,6 +58,26 @@ app.post('/login/attempt', (request, response) => {
             await client.connect();
             const database = await client.db("gettingStarted");
             const table = await database.collection('people');
+            const res = await table.findOne(request.body);
+            console.log(res);
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            await client.close();
+        }
+    })()
+})
+
+app.post('/register/new', (request, response) => {
+    console.log(request.body);
+    (async () => {
+        try {
+            await client.connect();
+            const database = await client.db("gettingStarted");
+            const table = await database.collection('people');
             const res = await table.insertOne(request.body);
 
         }
