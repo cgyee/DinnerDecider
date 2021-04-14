@@ -2,3 +2,5 @@
 package-lock.json
 settings.js
 .env
+dbtest.js
+MongoConnection.js
