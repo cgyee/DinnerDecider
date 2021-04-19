@@ -24,11 +24,11 @@ const Login = () => {
                 </div>
                 <Inputfield className={'form-input'} placeholder={'Email'} />
                 <Inputfield className={'form-input'} placeholder={'Password'}/>
-                <div
+                <a
                     href='http://localhost:8080/auth/login'  
                     style={{minWidth:'56px'}}>
                     <img src='./static/ms-symbollockup_signin_dark_short.png' alt=''></img>
-                </div>
+                </a>
             </div>
         </div>
     )

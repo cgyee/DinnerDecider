@@ -15,7 +15,7 @@ const authRoutes = require('./routes/authRoutes');
 const connectDB = require('./config/database');
 const PORT = 8080;
 
-require('./config/msIdentity')(passport);
+require('./config/passport')(passport);
 
 connectDB();
 
@@ -29,6 +29,9 @@ app.use(session({
     saveUninitialized: false,
     store:  new MongoStore({ mongooseConnection: mongoose.connection }),
 }))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.static(path.resolve(__dirname, '../frontend/public')));
 
