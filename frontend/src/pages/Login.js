@@ -12,7 +12,8 @@ const Login = () => {
             },
             body: JSON.stringify({'does':'it', 'work':true})
         };
-        fetch('/login/attempt', options);
+        // fetch('/login/attempt', options);
+        fetch('/api');
         console.log("fetch");
     }
     return (
@@ -23,7 +24,11 @@ const Login = () => {
                 </div>
                 <Inputfield className={'form-input'} placeholder={'Email'} />
                 <Inputfield className={'form-input'} placeholder={'Password'}/>
-                <TextButton text={'Login'} onClick={()=> postLogin()}/>
+                <div
+                    onClick={() => fetch('http://localhost:8080/api', {method:'GET', mode:'cors'} )}  
+                    style={{minWidth:'56px'}}>
+                    <img src='./static/ms-symbollockup_signin_dark_short.png' alt=''></img>
+                </div>
             </div>
         </div>
     )

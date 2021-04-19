@@ -11,7 +11,7 @@ exports.creds = {
   
     responseMode: 'form_post', 
   
-    redirectUrl: process.env.redirectUrl, 
+    redirectUrl: process.env.redirectURL, 
   
     allowHttpForRedirectUrl: true,
   
