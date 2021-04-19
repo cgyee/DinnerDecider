@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config('../.env');
 
 exports.creds = {
     identityMetadata: 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration', 
@@ -11,7 +11,7 @@ exports.creds = {
   
     responseMode: 'form_post', 
   
-    redirectUrl: process.env.redirectURL, 
+    redirectUrl: process.env.redirectUrl, 
   
     allowHttpForRedirectUrl: true,
   
