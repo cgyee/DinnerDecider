@@ -1,4 +1,3 @@
-const { request, response } = require('express')
 const express = require('express')
 const passport = require('passport')
 const config = require('../config/config')

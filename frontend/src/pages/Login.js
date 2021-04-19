@@ -25,7 +25,7 @@ const Login = () => {
                 <Inputfield className={'form-input'} placeholder={'Email'} />
                 <Inputfield className={'form-input'} placeholder={'Password'}/>
                 <div
-                    onClick={() => fetch('http://localhost:8080/api/login', {method:'GET', mode:'cors'} )}  
+                    href='http://localhost:8080/auth/login'  
                     style={{minWidth:'56px'}}>
                     <img src='./static/ms-symbollockup_signin_dark_short.png' alt=''></img>
                 </div>
