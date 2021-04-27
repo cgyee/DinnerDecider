@@ -4,7 +4,7 @@ const registrationController = require('../controllers/registrationController');
 
 router.use(express.urlencoded({ extended: true }))
 
-router.get('/', registrationController.getRoot);
+// router.get('/', registrationController.getRoot);
 router.post('/new_user', registrationController.createNewUser);
 
 module.exports = router;
