@@ -193,7 +193,7 @@ const VotePage = () => {
     }, [selectedOptions]);
 
     return (
-        <div className='center-abs row' style={{'flexDirection':'column'}}>
+        <div className='center-abs row ' style={{'flexDirection':'column'}}>
             <AsyncSelect
                 isMulti
                 cacheOptions

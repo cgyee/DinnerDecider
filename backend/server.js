@@ -7,7 +7,7 @@ const connectDB = require('./config/database');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session)
 const path = require('path');
-const PORT = 8080;
+const PORT = 5000;
 
 /* Routes  */
 const authRoutes = require('./routes/authRoutes');
@@ -33,7 +33,11 @@ app.use(passport.session())
 app.use(express.static(path.resolve(__dirname, '../frontend/public')));
 
 app.use('/auth', authRoutes);
-app.use('/api/address', addressRoutes)
+// app.use('/api/address', addressRoutes)
+app.post('/login/attempt', async (req, res) => {
+    const data = await req.body.does
+    console.log(data)
+})
 app.get('*', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../frontend/public', 'index.html'));
 })

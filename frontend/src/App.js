@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import VotePage from './pages/VotePage';
 import useToken from './components/token';
+import Results from './pages/Results'
 
 function App() {
     return (
@@ -27,6 +28,9 @@ function App() {
                     </Route>
                     <Route exact path='/Vote'>
                       <VotePage />
+                    </Route>
+                    <Route exact path='/Results'>
+                        <Results />
                     </Route>
                 </Switch>
             </Router>
