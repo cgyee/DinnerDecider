@@ -14,9 +14,7 @@ function App() {
     return (
         <div className="App">
             <Router >
-                <header className="App-header">
-                    <Navbar />
-                </header>
+                <Navbar />
                 <Switch>
                     <Route exact path='/'>
                         <Login useToken={useToken} />

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 const Inputfield = (props) => {
 
     const [passwordFieldInput, setPasswordFieldInput] = useState('');
+    console.log(props)
 
     return (
         props.type === 'email' ?
@@ -11,7 +12,7 @@ const Inputfield = (props) => {
                 className={props.className} 
                 placeholder={props.placeholder}
                 type={props.type}
-                onChange={(e) => {setPasswordFieldInput(e.target.value); props.updateParentState(passwordFieldInput)}}
+                onChange={(e) => {setPasswordFieldInput(e.target.value);}}
                 value={passwordFieldInput}
                 required>
             </input>

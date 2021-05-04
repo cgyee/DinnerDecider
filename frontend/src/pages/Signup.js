@@ -18,8 +18,8 @@ const Signup = () => {
                     <span style={{'fontSize':'1.5rem'}}>Signup</span>
                 </div>
                 <Inputfield className={'form-input'} placeholder={'Email'}  type='email'/>
-                <Inputfield className={'form-input'} placeholder={'Password'} type='password' updateParentState={setPasswordFieldMain}/>
-                <Inputfield className={'form-input'} placeholder={'Password'} type='password'updateParentState={setPasswordFieldSecondary}/>
+                <Inputfield className={'form-input'} placeholder={'Password'} type={'password'} updateParentState={setPasswordFieldMain}/>
+                <Inputfield className={'form-input'} placeholder={'Password'} type={'password'} updateParentState={setPasswordFieldSecondary}/>
                 <TextButton text={'Login'} hasDisabled={true} isDisabled={isButtonDisabled}/>
             </form>
         </div>
