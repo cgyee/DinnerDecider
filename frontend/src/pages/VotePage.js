@@ -206,10 +206,12 @@ const VotePage = () => {
                 }}
             />
             <button 
-                className='button-text'
+                className='btn button-text'
+                disabled={!(currentSelectedOptions.length === 3)}
                 onClick={()=> setSelectedOptions(currentSelectedOptions)}
                 style={{'margin':'40px 0 0 0', 'borderRadius':'5px', 'backgroundColor':'cadetblue', 'color':'white'}}
-            >Submit</button>
+                >Submit
+            </button>
         </div>
     )
 }

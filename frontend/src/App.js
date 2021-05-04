@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useHistory
 } from "react-router-dom";
 import AddressPage from './pages/AddressPage';
 import Signup from './pages/Signup';
@@ -12,6 +13,7 @@ import useToken from './components/token';
 import Results from './pages/Results'
 
 function App() {
+    const history = useHistory()
     return (
         <div className="App">
             <Router >
@@ -24,7 +26,7 @@ function App() {
                         <Signup />
                     </Route>
                     <Route exact path='/Address'>
-                        <AddressPage useToken={useToken}/>
+                        <AddressPage history={history}/>
                     </Route>
                     <Route exact path='/Vote'>
                       <VotePage />
