@@ -91,7 +91,3 @@ nav {
     justify-content: center;
     border-radius: 5px;
 }
-
-button:disabled {
-    background-color: blue;
-}

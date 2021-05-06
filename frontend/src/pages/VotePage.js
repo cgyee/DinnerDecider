@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import AsyncSelect from 'react-select/async';
+import {useHistory} from 'react-router-dom';
 
 const defaultOptions = [
     {label:'American', value:'tradamerican'},
@@ -185,12 +186,18 @@ const promiseOptions = (userInput) =>
     });
 
 const VotePage = () => {
+    const history = useHistory()
+    const mounted = useRef()
     const [currentSelectedOptions, setCurrentSelectedOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState([]);
-
+    
     useEffect(() => {
-        console.log(selectedOptions);
-    }, [selectedOptions]);
+        currentSelectedOptions.length === 3 && setSelectedOptions(currentSelectedOptions)
+    }, [currentSelectedOptions, setSelectedOptions])
+
+    const onClick = () => {
+        
+    }
 
     return (
         <div className='center-abs row ' style={{'flexDirection':'column'}}>
@@ -208,7 +215,7 @@ const VotePage = () => {
             <button 
                 className='btn button-text'
                 disabled={!(currentSelectedOptions.length === 3)}
-                onClick={()=> setSelectedOptions(currentSelectedOptions)}
+                onClick={onClick}
                 style={{'margin':'40px 0 0 0', 'borderRadius':'5px', 'backgroundColor':'cadetblue', 'color':'white'}}
                 >Submit
             </button>

@@ -13,7 +13,6 @@ import useToken from './components/token';
 import Results from './pages/Results'
 
 function App() {
-    const history = useHistory()
     return (
         <div className="App">
             <Router >
@@ -26,12 +25,12 @@ function App() {
                         <Signup />
                     </Route>
                     <Route exact path='/Address'>
-                        <AddressPage history={history}/>
+                        <AddressPage />
                     </Route>
                     <Route exact path='/Vote'>
                       <VotePage />
                     </Route>
-                    <Route exact path='/Results'>
+                    <Route  path='/Results'>
                         <Results />
                     </Route>
                 </Switch>

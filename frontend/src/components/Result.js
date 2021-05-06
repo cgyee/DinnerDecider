@@ -3,7 +3,7 @@ import React from 'react'
 const Result = () => {
 
     return (
-        <div className="card mb-3" style={{"max-width":"540px", "margin":"auto"}}>
+        <div className="card mb-3" style={{"maxWidth":"540px", "margin":"auto"}}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src="./static/unnamed.jpeg" alt="..." style={{'height': '100%' ,'width': '100%'}}/>
