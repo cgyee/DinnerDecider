@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+body {
+    font-size: 1rem;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+}
+
+nav {
+    color: beige;
+}
+
+.row {
+    display: flex;
+}
+
+.center-abs, .form-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.list-link {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    outline: none;
+}
+
+.list-item:first-child {
+
+}
+
+.list-item:last-child {
+    margin-right: 5px;
+}
+
+.input-box, .button-text, .form-input {
+    display: block;
+    border-style: none;
+    border-radius: 5px;
+    font-size: 1.35rem;
+    padding: .5rem;
+    background-color: white;
+}
+
+.form-input {
+    background-color: white;
+    border-style: none none solid none;
+    border-radius: 0;
+    margin: 0 auto 60px auto;
+
+}
+
+.input-box:focus {
+    outline: none;
+}
+
+.icon-button, .button-text {
+    min-width: 56px;
+    border: none;
+    outline: none;
+}
+
+.button-text {
+    color: white;
+    background-color: cadetblue;
+    min-width: 333px;
+}
+.input-box:focus, .form-input:focus {
+    outline: none;
+}
+.icon-button:first-child, .input-box:first-child, .button-text:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.icon-button:last-child, .input-box:last-child, .button-text:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.form-login {
+    min-width: 400px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+}
