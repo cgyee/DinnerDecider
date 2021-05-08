@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import AsyncSelect from 'react-select/async';
 import {useHistory} from 'react-router-dom';
 
@@ -185,9 +185,8 @@ const promiseOptions = (userInput) =>
         }, 1000)
     });
 
-const VotePage = () => {
+const VotePage = (props) => {
     const history = useHistory()
-    const mounted = useRef()
     const [currentSelectedOptions, setCurrentSelectedOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState([]);
     
@@ -196,7 +195,11 @@ const VotePage = () => {
     }, [currentSelectedOptions, setSelectedOptions])
 
     const onClick = () => {
-        
+        console.log(props.history)
+        props.history.push({
+            pathname:'/Results',
+            state: [...selectedOptions]
+        })
     }
 
     return (

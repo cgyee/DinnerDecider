@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import isValidZipCode from 'is-valid-zipcode';
 
-const AddressPage = (props) => {
+const AddressPage = () => {
     const history = useHistory()
     const [zipCode, setZipCode] = useState('')
     const onChange = (e) => setZipCode(e.target.value);
