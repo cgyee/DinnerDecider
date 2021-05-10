@@ -2,10 +2,9 @@ import React from 'react'
 import Result from '../components/Result';
 
 const Results = (props) => {
-    console.log(props.history.location.state)
-    const data = props.history.location.state
-    const [resturantSelection1, resturantSelection2, resturantSelection3] = data
-    const URI_STRING = `api/resturant/`
+    const URI_STRING = `api/Results/`
+    console.log("🚀 ~ file: Results.js ~ line 24 ~ Results ~ props.history.location.state", props.history.location.state)
+
     /* (async () => {
         const response = await fetch('/api/resturant', 
         {

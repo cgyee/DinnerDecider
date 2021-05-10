@@ -208,16 +208,15 @@ const VotePage = (props) => {
                 const data = await response.json()
                 console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
                 
-            })() 
+            })(); 
         }
-    },[])
+    },[]);
 
     const onClick = () => {
-        console.log(history)
         history.push({
-            pathname:'/Results',
-            state: [...selectedOptions]
-        })
+            pathname:`/Results/${pollId}`,
+            state: {pollId}
+        });
         (async () =>{
             const URI = history.location.pathname
             const response = await fetch(`http://localhost:5000/api${URI}`, 
@@ -226,7 +225,7 @@ const VotePage = (props) => {
                 body: JSON.stringify({categories:selectedOptions})
             })
             console.log("🚀 ~ file: VotePage.js ~ line 222 ~ response", response)
-        })
+        })();
     }
     
 
