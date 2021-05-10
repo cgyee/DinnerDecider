@@ -25,7 +25,7 @@ function App() {
                     <Route exact path='/Address'>
                         <AddressPage />
                     </Route>
-                    <Route exact path='/Vote' 
+                    <Route  path='/Vote' 
                         render={routeProps => <VotePage {...routeProps}/>}>  
                     </Route>
                     <Route  path='/Results' 

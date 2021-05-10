@@ -6,17 +6,17 @@ const Results = (props) => {
     const data = props.history.location.state
     const [resturantSelection1, resturantSelection2, resturantSelection3] = data
     const URI_STRING = `api/resturant/`
-    // (async () => {
-    //     const response = await fetch('/api/resturant', 
-    //     {
-    //         method: 'GET',
-    //         mode:'cors',
-    //         headers: {
-    //             'Content-type':'Application/json'
-    //         }
-    //     })
-    //     console.log(response) 
-    // })()
+    /* (async () => {
+        const response = await fetch('/api/resturant', 
+        {
+            method: 'GET',
+            mode:'cors',
+            headers: {
+                'Content-type':'Application/json'
+            }
+        })
+        console.log(response) 
+    })() */
     return (
         <div className='container'>
             <Result />

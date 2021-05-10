@@ -186,21 +186,49 @@ const promiseOptions = (userInput) =>
     });
 
 const VotePage = (props) => {
-    const history = useHistory()
     const [currentSelectedOptions, setCurrentSelectedOptions] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [pollId, setPollId] = useState('')
+    const hist = useHistory()
+    console.log("🚀 ~ file: VotePage.js ~ line 193 ~ VotePage ~ hist", hist)
+    const history = props.history || hist
     
     useEffect(() => {
         currentSelectedOptions.length === 3 && setSelectedOptions(currentSelectedOptions)
     }, [currentSelectedOptions, setSelectedOptions])
 
+    useEffect(() => {
+        if(history.location.state && 'id' in history.location.state) {
+            setPollId(history.location.state.id)
+        } else {
+            ( async () => {
+                const URI = history.location.pathname
+                const response = await fetch(`http://localhost:5000/api${URI}`)
+                console.log("🚀 ~ file: VotePage.js ~ line 211 ~ response", response)
+                const data = await response.json()
+                console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
+                
+            })() 
+        }
+    },[])
+
     const onClick = () => {
-        console.log(props.history)
-        props.history.push({
+        console.log(history)
+        history.push({
             pathname:'/Results',
             state: [...selectedOptions]
         })
+        (async () =>{
+            const URI = history.location.pathname
+            const response = await fetch(`http://localhost:5000/api${URI}`, 
+            {
+                method: 'PUT',
+                body: JSON.stringify({categories:selectedOptions})
+            })
+            console.log("🚀 ~ file: VotePage.js ~ line 222 ~ response", response)
+        })
     }
+    
 
     return (
         <div className='center-abs row ' style={{'flexDirection':'column'}}>
