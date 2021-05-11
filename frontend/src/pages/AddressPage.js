@@ -2,11 +2,25 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import isValidZipCode from 'is-valid-zipcode';
 
-const AddressPage = (props) => {
+const AddressPage = () => {
     const history = useHistory()
     const [zipCode, setZipCode] = useState('')
     const onChange = (e) => setZipCode(e.target.value);
-    const onClick = () => history.push('/Vote')
+    const onClick = async () => {
+        const response = await fetch('http://localhost:5000/api/address', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-type':'Application/json'},
+            body: JSON.stringify({zip:zipCode})
+        })
+        const data = await response.json()
+        console.log("🚀 ~ file: AddressPage.js ~ line 17 ~ onClick ~ data", data)
+        
+        history.push(
+            {pathname:'/Vote/'+data.id},
+            {id:data.id}
+        )
+    }
     return (
         <div className="container" style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%, -50%)'}}>
             <div className='row'>

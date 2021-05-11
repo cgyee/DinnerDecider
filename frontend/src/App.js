@@ -2,14 +2,12 @@ import Navbar from './components/Navbar';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  useHistory
+  Route
 } from "react-router-dom";
 import AddressPage from './pages/AddressPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import VotePage from './pages/VotePage';
-import useToken from './components/token';
 import Results from './pages/Results'
 
 function App() {
@@ -19,7 +17,7 @@ function App() {
                 <Navbar />
                 <Switch>
                     <Route exact path='/'>
-                        <Login useToken={useToken} />
+                        <Login />
                     </Route>
                     <Route exact path='/Signup'>
                         <Signup />
@@ -27,11 +25,11 @@ function App() {
                     <Route exact path='/Address'>
                         <AddressPage />
                     </Route>
-                    <Route exact path='/Vote'>
-                      <VotePage />
+                    <Route  path='/Vote' 
+                        render={routeProps => <VotePage {...routeProps}/>}>  
                     </Route>
-                    <Route  path='/Results'>
-                        <Results />
+                    <Route  path='/Results' 
+                        render={routeProps => <Results {...routeProps}/>}>
                     </Route>
                 </Switch>
             </Router>
