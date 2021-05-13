@@ -207,16 +207,12 @@ const VotePage = (props) => {
                 console.log("🚀 ~ file: VotePage.js ~ line 211 ~ response", response)
                 const data = await response.json()
                 console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
-                
+                setPollId(data.id)
             })(); 
         }
     },[]);
 
     const onClick = () => {
-        history.push({
-            pathname:`/Results/${pollId}`,
-            state: {pollId}
-        });
         (async () =>{
             const URI = history.location.pathname
             const response = await fetch(`http://localhost:5000/api${URI}`, 
@@ -226,6 +222,10 @@ const VotePage = (props) => {
             })
             console.log("🚀 ~ file: VotePage.js ~ line 222 ~ response", response)
         })();
+        history.push({
+            pathname:`/Results/${pollId}`,
+            state: {pollId}
+        });
     }
     
 
