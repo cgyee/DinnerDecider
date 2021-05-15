@@ -28,7 +28,6 @@ module.exports = {
             })
             console.log("🚀 ~ file: resturantInfo.js ~ line 18 ~ postZip:async ~ poll", poll)
             res.json({'id':poll._id})
-            // res.json({id:'60975a4c5341cb46e183a591'})
         } catch (error) {
             console.log(error)
         }
@@ -37,13 +36,16 @@ module.exports = {
     putPollEntry: async(req, res) => {
         try {
             const pollId =  req.params.id
-            console.log("🚀 ~ file: resturantInfo.js ~ line 39 ~ putPollEntry:async ~ pollId", pollId)
             const categories =  req.body.categories
-            const id = moongose.Types.ObjectId()
-            console.log("🚀 ~ file: resturantInfo.js ~ line 43 ~ putPollEntry:async ~ id", id)
-            const pollEntry = await Polls.findByIdAndUpdate({_id:"609c21ed98f74f71ad268fdf"}, {$push: {'participants': categories}} )
-            console.log("🚀 ~ file: resturantInfo.js ~ line 41 ~ putPollEntry:async ~ pollEntry", pollEntry)
-            res.json({id:pollId})
+            console.log("🚀 ~ file: resturantInfo.js ~ line 40 ~ putPollEntry:async ~ categories", categories)
+            // const pollEntry = await Polls.findByIdAndUpdate({_id:pollId}, {$push: {'participants': values}})
+            const poll = await Polls.findById({_id:pollId})
+
+            const votedCategories = poll.participants
+            console.log("🚀 ~ file: resturantInfo.js ~ line 44 ~ putPollEntry:async ~ votedCategories", votedCategories)
+            let updateParticipants = {}
+
+            res.json({id:"test"})
         } catch (error) {
             console.log(error)
         }

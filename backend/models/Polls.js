@@ -11,7 +11,7 @@ const PollSchema = new mongoose.Schema({
     },
     participants: {
         type: [Object],
-        default:[]
+        default:[],
     }
 })
 
