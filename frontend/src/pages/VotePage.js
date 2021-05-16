@@ -221,7 +221,7 @@ const VotePage = (props) => {
                 method: 'PUT',
                 mode: 'cors',
                 headers: {'Content-type':'Application/json'},
-                body: JSON.stringify({...selectedOptions})
+                body: JSON.stringify({categories})
             })
         })();
         history.push({

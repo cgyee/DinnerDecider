@@ -9,9 +9,9 @@ const PollSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    participants: {
+    votes: {
         type: [Object],
-        default:[],
+        default:[]
     }
 })
 
