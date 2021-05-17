@@ -1,5 +1,6 @@
+require('dotenv').config({path:__dirname+'/.env'})
 moongose = require('mongoose')
-const { count } = require('../models/Polls')
+const fetch = require('node-fetch')
 const Polls = require('../models/Polls')
 
 module.exports = {
@@ -71,7 +72,7 @@ module.exports = {
                 if(vote_a.count > vote_b.count) { return 1 }
                 return 0
             })
-            Polls.updateOne({_id:pollId}, {votes:pollVotes})
+            await Polls.updateOne({_id:pollId}, {votes:pollVotes})
 
             res.json({id:"working"})
         } catch (error) {
@@ -83,6 +84,24 @@ module.exports = {
             const pollId = req.params.id
             const poll = await Polls.findById({_id:pollId})
             let pollVotes = poll.votes
+            const zip = poll.address
+            const category = pollVotes[pollVotes.length -1].category 
+
+            const myHeader = {'Authorization':`Bearer ${process.env.YELP_API_KEY}`}
+            const requestOptions = {
+               method: 'GET',
+               headers:myHeader,
+               redirect:'follow' 
+            }
+            const response =  await  fetch(`https://api.yelp.com/v3/businesses/search?location=${zip}&categories=${category}&sort_by=rating`, requestOptions)
+            console.log("🚀 ~ file: resturantInfo.js ~ line 97 ~ getResult:async ~ response", response)
+            const data = await response.json()
+            console.log("🚀 ~ file: resturantInfo.js ~ line 99 ~ getResult:async ~ data", data)
+            const resturant = data[0]
+            const resturantName = resturant.name
+            const resturantImgUrl = resturant.image_url
+            res.json({resturantName, resturantImgUrl})
+        
         } catch (error) {
             console.log(error)
         }

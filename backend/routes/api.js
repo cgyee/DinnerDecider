@@ -6,5 +6,6 @@ router.get('/resturant', detailsController.getResturant)
 router.post('/address', detailsController.postZip)
 router.get('/Vote/:id', detailsController.getPollId)
 router.put('/Vote/:id', detailsController.putPollEntry)
+router.get('/Results/:id', detailsController.getResult)
 
 module.exports = router
