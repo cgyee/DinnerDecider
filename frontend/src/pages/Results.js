@@ -3,9 +3,7 @@ import Result from '../components/Result';
 
 const Results = (props) => {
     const URI_STRING = `api/Results/${props.history.location.state.pollId}`
-    console.log("🚀 ~ file: Results.js ~ line 24 ~ Results ~ props.history.location.state", props.history.location.state);
-    const [name, setName] = useState('')
-    let [imageUrl, setImageUrl] = useState('')
+    const [resturantInfo, setResturantInfo] = useState({})
 
     useEffect(() =>{
         (async () => {
@@ -18,14 +16,13 @@ const Results = (props) => {
                 }
             });
             console.log(response) 
-            const data = await response.json()
-            setName(data.resturantName)
-            setImageUrl(data.resturantImgUrl)
+            const resturantInfo = await response.json()
+            setResturantInfo(resturantInfo)
         })()
-    }, [setImageUrl, setName])
+    }, [setResturantInfo])
     return (
         <div className='container'>
-            <Result name={name} imageUrl={imageUrl} />
+            <Result {...resturantInfo} />
         </div>
     )
 }

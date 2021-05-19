@@ -40,14 +40,12 @@ module.exports = {
         try {
             const pollId =  req.params.id
             const selectedValuesObject =  req.body.categories
-            console.log("🚀 ~ file: resturantInfo.js ~ line 40 ~ putPollEntry:async ~ selectedValuesObject", selectedValuesObject)
             let categories = []
 
             for(let index in selectedValuesObject) {
                 categories.push(selectedValuesObject[index].value)
             }
 
-            console.log("🚀 ~ file: resturantInfo.js ~ line 48 ~ putPollEntry:async ~ categories", categories)
             const vote = await Votes.create({pollId, categories})
             console.log("🚀 ~ file: resturantInfo.js ~ line 50 ~ putPollEntry:async ~ vote", vote)
 
@@ -60,7 +58,49 @@ module.exports = {
         try {
             const pollId = req.params.id
             const votes = await Votes.find({pollId})
-            console.log("🚀 ~ file: resturantInfo.js ~ line 63 ~ getResult:async ~ votes", votes)
+            const poll = await Polls.findById({_id:pollId})
+            const address = poll.address
+            
+            let votesArray =[]
+            let voteCounts = {}
+            votes.forEach(vote => {
+                votesArray = [...votesArray, ...vote.categories]
+            })
+
+            let max = 0
+            let category;
+            
+            votesArray.forEach(vote => {
+                if(!(vote in voteCounts)) {
+                    voteCounts[vote] = 0
+                }
+                voteCounts[vote]+=1
+                if(voteCounts[vote] > max) {
+                    category = vote
+                    max = voteCounts[vote]
+                }
+            })
+
+            const myHeader = {'Authorization':`Bearer ${process.env.YELP_API_KEY}`}
+            const requestOptions = {
+               method: 'GET',
+               headers:myHeader,
+               redirect:'follow' 
+            }
+            const response =  await  fetch(`https://api.yelp.com/v3/businesses/search?location=${address}&categories=${category}&sort_by=rating`, requestOptions)
+            const data = await response.json()
+            const resturant = data.businesses[0]
+            // const resturantName = resturant.name
+            // const resturantImgUrl = resturant.image_url
+            const {
+                name, 
+                image_url, 
+                location, 
+                rating, 
+                phone, 
+                review_count
+            } = resturant
+            res.json({name, image_url, location, rating, phone, review_count})
         
         } catch (error) {
             console.log(error)
