@@ -190,7 +190,6 @@ const VotePage = (props) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [pollId, setPollId] = useState('')
     const hist = useHistory()
-    console.log("🚀 ~ file: VotePage.js ~ line 193 ~ VotePage ~ hist", hist)
     const history = props.history || hist
     
     useEffect(() => {
@@ -207,25 +206,28 @@ const VotePage = (props) => {
                 console.log("🚀 ~ file: VotePage.js ~ line 211 ~ response", response)
                 const data = await response.json()
                 console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
-                
+                setPollId(data.id)
             })(); 
         }
     },[]);
 
     const onClick = () => {
+        (async () =>{
+            const URI = history.location.pathname
+            console.log("🚀 ~ file: VotePage.js ~ line 218 ~ URI", URI)
+            const categories = {...selectedOptions}
+            const response = await fetch(`http://localhost:5000/api${URI}`, 
+            {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {'Content-type':'Application/json'},
+                body: JSON.stringify({categories})
+            })
+        })();
         history.push({
             pathname:`/Results/${pollId}`,
             state: {pollId}
         });
-        (async () =>{
-            const URI = history.location.pathname
-            const response = await fetch(`http://localhost:5000/api${URI}`, 
-            {
-                method: 'PUT',
-                body: JSON.stringify({categories:selectedOptions})
-            })
-            console.log("🚀 ~ file: VotePage.js ~ line 222 ~ response", response)
-        })();
     }
     
 
@@ -239,7 +241,6 @@ const VotePage = (props) => {
                 value={currentSelectedOptions}
                 onChange={currentSelectedOptions => {
                     setCurrentSelectedOptions(currentSelectedOptions)
-                    console.log(currentSelectedOptions)
                 }}
             />
             <button 
