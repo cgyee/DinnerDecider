@@ -90,17 +90,18 @@ module.exports = {
             const response =  await  fetch(`https://api.yelp.com/v3/businesses/search?location=${address}&categories=${category}&sort_by=rating`, requestOptions)
             const data = await response.json()
             const resturant = data.businesses[0]
-            // const resturantName = resturant.name
-            // const resturantImgUrl = resturant.image_url
             const {
                 name, 
                 image_url, 
-                location, 
+                location,
+                country, 
                 rating, 
                 phone, 
                 review_count
             } = resturant
-            res.json({name, image_url, location, rating, phone, review_count})
+            const {display_addresss} = location
+            console.log("🚀 ~ file: resturantInfo.js ~ line 103 ~ getResult:async ~ location", location)
+            res.json({name, image_url, country, display_addresss, rating, phone, review_count})
         
         } catch (error) {
             console.log(error)

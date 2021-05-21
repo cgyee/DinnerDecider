@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
 const Result = (props) => {
 
@@ -11,7 +11,7 @@ const Result = (props) => {
                 <div className="col-md-8">
                 <div className="card-body">
                     <h5 className="card-title">{props.name}</h5>
-                    <h6 className='card-subtitle text-muted'>Location</h6>
+                    <h6 className='card-subtitle text-muted'>{props.display_address}</h6>
                     <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
                 </div>
                 </div>
