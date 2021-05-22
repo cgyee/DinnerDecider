@@ -13,6 +13,3 @@ module.exports =  {
     push.trigger('DinnerDeciderDemo', 'addVote', {count})
   }
 }
-/* pusher.trigger("my-channel", "my-event", {
-  message: "hello world"
-}); */
