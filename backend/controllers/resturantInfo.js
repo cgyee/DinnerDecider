@@ -96,7 +96,8 @@ module.exports = {
                 location,
                 rating, 
                 phone, 
-                review_count
+                review_count,
+                url
             } = resturant
             const {
                 address1,

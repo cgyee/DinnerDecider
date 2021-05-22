@@ -10,6 +10,9 @@ import Login from './pages/Login';
 import VotePage from './pages/VotePage';
 import Results from './pages/Results'
 
+/* Change my name! */
+import PollCountPage from './pages/PollCountPage'
+
 function App() {
     return (
         <div className="App">
@@ -30,6 +33,10 @@ function App() {
                     </Route>
                     <Route  path='/Results' 
                         render={routeProps => <Results {...routeProps}/>}>
+                    </Route>
+                    {/* Update me when name is changed! */}
+                    <Route path='/Callvotes'
+                        render={routeProps => <PollCountPage {...routeProps}/>}>
                     </Route>
                 </Switch>
             </Router>
