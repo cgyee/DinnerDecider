@@ -94,14 +94,21 @@ module.exports = {
                 name, 
                 image_url, 
                 location,
-                country, 
                 rating, 
                 phone, 
                 review_count
             } = resturant
-            const {display_addresss} = location
+            const {
+                address1,
+                address2,
+                address3,
+                city, 
+                country, 
+                state,
+                display_address
+            } = location
             console.log("🚀 ~ file: resturantInfo.js ~ line 103 ~ getResult:async ~ location", location)
-            res.json({name, image_url, country, display_addresss, rating, phone, review_count})
+            res.json({name, image_url, country, display_address, rating, phone, review_count})
         
         } catch (error) {
             console.log(error)

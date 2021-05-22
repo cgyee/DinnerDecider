@@ -12,9 +12,6 @@ const Results = (props) => {
             {
                 method: 'GET',
                 mode:'cors',
-                headers: {
-                    'Content-type':'Application/json'
-                }
             }); 
             const resturantInfo = await response.json()
             setResturantInfo(resturantInfo)
@@ -23,7 +20,10 @@ const Results = (props) => {
     }, [setResturantInfo])
     return (
         <div className='container'>
-            < Result {...resturantInfo} />
+            {
+                resturantInfo &&
+                < Result {...resturantInfo} />
+            }
         </div>
     )
 }
