@@ -1,6 +1,7 @@
 require('dotenv').config({path:__dirname+'/.env'})
 moongose = require('mongoose')
 const fetch = require('node-fetch')
+const pusher = require('../config/pusher')
 const Polls = require('../models/Polls')
 const Votes = require('../models/Votes')
 
@@ -48,6 +49,7 @@ module.exports = {
 
             const vote = await Votes.create({pollId, categories})
             console.log("🚀 ~ file: resturantInfo.js ~ line 50 ~ putPollEntry:async ~ vote", vote)
+            pusher.pushVote(2)
 
             res.json({id:"working"})
         } catch (error) {
