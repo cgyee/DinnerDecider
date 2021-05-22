@@ -48,8 +48,9 @@ module.exports = {
             }
 
             const vote = await Votes.create({pollId, categories})
-            console.log("🚀 ~ file: resturantInfo.js ~ line 50 ~ putPollEntry:async ~ vote", vote)
-            pusher.pushVote(2)
+            const poll = await Polls.findByIdAndUpdate({_id:pollId}, {$push: {voters:pollId}})
+            const count = poll.voters.length
+            pusher.pushVote(count)
 
             res.json({id:"working"})
         } catch (error) {
