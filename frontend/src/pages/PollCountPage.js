@@ -1,5 +1,5 @@
 import React from 'react'
-
+/* Rename me! */
 const PollCountPage = () => {
     return (
         <div className='container'>
