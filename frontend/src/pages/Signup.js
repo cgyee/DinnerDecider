@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom'
 import Inputfield from '../components/Inputfield';
 import TextButton from '../components/TextButton';
 
@@ -7,6 +8,7 @@ const Signup = () => {
     const [passwordFieldMain, setPasswordFieldMain] = useState('');
     const [passwordFieldSecondary, setPasswordFieldSecondary] = useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const history = useHistory()
 
     useEffect(() => {
         (email && (passwordFieldMain === passwordFieldSecondary)) ? setIsButtonDisabled(false) : setIsButtonDisabled(true);
@@ -22,6 +24,15 @@ const Signup = () => {
             body: JSON.stringify({email, password:passwordFieldMain})
         };
         const response  = await fetch('http://localhost:5000/auth/local/signup', options);
+        if(response.status === 201) {
+            history.push({
+                pathname:'/'
+            })
+        } else {
+            const data  = await response.json()
+            const {message} = data
+            console.log("🚀 ~ file: Signup.js ~ line 33 ~ onClick ~ message", message)
+        }
         console.log("🚀 ~ file: Signup.js ~ line 25 ~ onClick ~ response", response)
     }
     return (
