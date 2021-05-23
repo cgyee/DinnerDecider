@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TextButton = (props) => {
-    const clickEvent = props.onClick || function() {console.log("")};
+    const clickEvent = props.onClick;
     return (
         props.hasDisabled ?
             <button className="button-text" onClick={clickEvent} disabled={props.isDisabled}>{props.text}</button>:
