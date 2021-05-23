@@ -90,7 +90,8 @@ exports.postSignup = (req, res, next) => {
                 if (err) {
                     return next(err)
                 }
-                res.redirect('/post')
+                res.sendStatus(201)
+                // res.redirect('/post')
             })
         })
     })
