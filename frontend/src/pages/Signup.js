@@ -29,8 +29,7 @@ const Signup = () => {
                 pathname:'/'
             })
         } else {
-            const data  = await response.json()
-            const {message} = data
+            const {message}  = await response.json()
             console.log("🚀 ~ file: Signup.js ~ line 33 ~ onClick ~ message", message)
         }
         console.log("🚀 ~ file: Signup.js ~ line 25 ~ onClick ~ response", response)
