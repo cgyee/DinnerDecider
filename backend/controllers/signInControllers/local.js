@@ -14,11 +14,12 @@ exports.getLogin = (req, res) => {
 exports.postLogin = (req, res, next) => {
     const validationErrors = []
     console.log(req.body)
-    if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' })
-    if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' })
+    if (!validator.isEmail(req.body.email)) validationErrors.push('Please enter a valid email address.')
+    if (validator.isEmpty(req.body.password)) validationErrors.push('Password cannot be blank.')
 
     if (validationErrors.length) {
         req.flash('errors', validationErrors)
+        console.log("🚀 ~ file: local.js ~ line 30 ~ validationErrors", validationErrors)
         return res.status(401).send({message:validationErrors.join(' ')})
     }
     req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false })
@@ -32,7 +33,7 @@ exports.postLogin = (req, res, next) => {
         req.logIn(user, (err) => {
             if (err) { return next(err) }
             req.flash('success', { msg: 'Success! You are logged in.' })
-            res.send({message: 'Success! You are logged in.'})
+            res.sendStatus(200)
         })
     })(req, res, next)
 }

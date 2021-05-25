@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom'
 import Inputfield from '../components/Inputfield';
 
 const Login = () => {
@@ -11,21 +12,35 @@ const Login = () => {
             },
             body: JSON.stringify({email:emailField, password:passwordFieldMain})
         };
-        fetch('http://localhost:5000/auth/local/login', options);
-        console.log("fetch");
+        const response = await fetch('http://localhost:5000/auth/local/login', options);
+        console.log("🚀 ~ file: Login.js ~ line 16 ~ postLogin ~ response", response)
+        if(response.status === 200) {
+            history.push({
+                pathname:'/Address'
+            });
+        } else {
+            const {message} = await response.json()
+            // console.log("🚀 ~ file: Login.js ~ line 23 ~ postLogin ~ message", message)
+            alert(message)
+        }
     }
     const [emailField, setEmailField] = useState('')
-    const [passwordFieldMain, setPasswordFieldMain] = useState('');
+    const [passwordFieldMain, setPasswordFieldMain] = useState('')
+    const [buttonIsDisabld, setButtonIsDisabled] = useState(true)
+    const history = useHistory()
+    useEffect(()=> {
+        setButtonIsDisabled(!(emailField && passwordFieldMain))
+    }, [emailField, passwordFieldMain])
     return (
         <div className="form-login">
             <div>
                 <div className='row' style={{'justifyContent':'center', 'padding':'0 0 100px 0'}}>
                     <span style={{'fontSize':'1.5rem'}}>Welcome</span>
                 </div>
-                <Inputfield className={'form-input'} placeholder={'Email'} updateParentState={setEmailField} />
-                <Inputfield className={'form-input'} placeholder={'Password'} updateParentState={setPasswordFieldMain}/>
+                <Inputfield className={'form-input'} placeholder={'Email'} type='email' updateParentState={setEmailField} />
+                <Inputfield className={'form-input'} placeholder={'Password'} type='password' updateParentState={setPasswordFieldMain}/>
                 <div className='d-grid gap-2'>
-                    <button className='btn btn-primary' disabled={emailField && passwordFieldMain} onClick={postLogin}>Submit</button>
+                    <button className='btn btn-primary' disabled={buttonIsDisabld} onClick={postLogin}>Submit</button>
                     <a
                         className='btn'
                         href='http://localhost:8080/auth/login'  >
