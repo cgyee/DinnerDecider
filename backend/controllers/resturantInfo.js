@@ -1,6 +1,6 @@
 require('dotenv').config({path:__dirname+'/.env'})
-moongose = require('mongoose')
 const fetch = require('node-fetch')
+const pusher = require('../config/pusher')
 const Polls = require('../models/Polls')
 const Votes = require('../models/Votes')
 
@@ -8,16 +8,6 @@ module.exports = {
     getResturant: async (req, res) => {
         try {
             console.log(req.body)
-        } catch (error) {
-            console.log(error)
-        }
-    },
-
-    getPollId: (req, res) => {
-        try {
-            const pollId = req.params.id 
-            console.log("🚀 ~ file: resturantInfo.js ~ line 14 ~ pollId", pollId)
-            res.json({id:pollId})
         } catch (error) {
             console.log(error)
         }
@@ -36,74 +26,15 @@ module.exports = {
         }
     },
 
-    putPollEntry: async(req, res) => {
-        try {
-            const pollId =  req.params.id
-            const selectedValuesObject =  req.body.categories
-            let categories = []
-
-            for(let index in selectedValuesObject) {
-                categories.push(selectedValuesObject[index].value)
-            }
-
-            const vote = await Votes.create({pollId, categories})
-            console.log("🚀 ~ file: resturantInfo.js ~ line 50 ~ putPollEntry:async ~ vote", vote)
-
-            res.json({id:"working"})
-        } catch (error) {
-            console.log(error)
-        }
-    },
-    getResult: async(req, res) => {
+    getVotercount: async (req, res) => {
         try {
             const pollId = req.params.id
-            const votes = await Votes.find({pollId})
             const poll = await Polls.findById({_id:pollId})
-            const address = poll.address
-            
-            let votesArray =[]
-            let voteCounts = {}
-            votes.forEach(vote => {
-                votesArray = [...votesArray, ...vote.categories]
-            })
-
-            let max = 0
-            let category;
-            
-            votesArray.forEach(vote => {
-                if(!(vote in voteCounts)) {
-                    voteCounts[vote] = 0
-                }
-                voteCounts[vote]+=1
-                if(voteCounts[vote] > max) {
-                    category = vote
-                    max = voteCounts[vote]
-                }
-            })
-
-            const myHeader = {'Authorization':`Bearer ${process.env.YELP_API_KEY}`}
-            const requestOptions = {
-               method: 'GET',
-               headers:myHeader,
-               redirect:'follow' 
-            }
-            const response =  await  fetch(`https://api.yelp.com/v3/businesses/search?location=${address}&categories=${category}&sort_by=rating`, requestOptions)
-            const data = await response.json()
-            const resturant = data.businesses[0]
-            // const resturantName = resturant.name
-            // const resturantImgUrl = resturant.image_url
-            const {
-                name, 
-                image_url, 
-                location, 
-                rating, 
-                phone, 
-                review_count
-            } = resturant
-            res.json({name, image_url, location, rating, phone, review_count})
-        
+            console.log("🚀 ~ file: resturantInfo.js ~ line 125 ~ getVotercount: ~ poll", poll)
+            const count = poll.voters.length || 0
+            res.json({count})
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 }

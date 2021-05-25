@@ -1,19 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const Inputfield = (props) => {
-
-    const [passwordFieldInput, setPasswordFieldInput] = useState('');
-    console.log(props)
-
+    const [fieldInput, setFieldInput] = useState('');
+    const updateParentState = props.updateParentState
+    useEffect(()=>{
+        updateParentState(fieldInput)
+    }, [fieldInput])
     return (
         props.type === 'email' ?
-            <input className={props.className} placeholder={props.placeholder} type={props.email} required></input>:
+            <input 
+                className={props.className}
+                placeholder={props.placeholder} 
+                type={props.email} 
+                onChange={(e) => setFieldInput(e.target.value)}
+                value={fieldInput}    
+                required>
+            </input>:
             <input 
                 className={props.className} 
                 placeholder={props.placeholder}
                 type={props.type}
-                onChange={(e) => {setPasswordFieldInput(e.target.value);}}
-                value={passwordFieldInput}
+                onChange={(e) => {setFieldInput(e.target.value);}}
+                value={fieldInput}
                 required>
             </input>
         

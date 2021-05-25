@@ -9,9 +9,9 @@ const Login = () => {
             headers: {
                 'Content-type':'Application/json'
             },
-            body: JSON.stringify({'does':'it', 'work':true})
+            body: JSON.stringify({email:emailField, password:passwordFieldMain})
         };
-        fetch('/login/attempt', options);
+        fetch('http://localhost:5000/auth/local/login', options);
         console.log("fetch");
     }
     const [emailField, setEmailField] = useState('')

@@ -1,4 +1,5 @@
 const express = require('express');
+const flash = require('express-flash')
 const app = express();
 const cors = require('cors');
 const session = require('express-session');
@@ -30,6 +31,7 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 app.use(express.static(path.resolve(__dirname, '../frontend/public')));
 
