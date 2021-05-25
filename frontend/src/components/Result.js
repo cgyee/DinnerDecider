@@ -3,7 +3,7 @@ import React from 'react'
 const Result = (props) => {
     console.log("🚀 ~ file: Result.js ~ line 23 ~ Result ~ props.display_address", props.display_address)
     return (
-        <div className="card mb-3" style={{"maxWidth":"540px", "margin":"auto"}}>
+        <div className="card mb-3" style={{"margin":"auto"}}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={props.image_url} alt="..." style={{'height': '100%' ,'width': '100%'}}/>

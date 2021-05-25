@@ -31,6 +31,7 @@ const Signup = () => {
         } else {
             const {message}  = await response.json()
             console.log("🚀 ~ file: Signup.js ~ line 33 ~ onClick ~ message", message)
+            alert(message)
         }
         console.log("🚀 ~ file: Signup.js ~ line 25 ~ onClick ~ response", response)
     }

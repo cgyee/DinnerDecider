@@ -203,9 +203,9 @@ const VotePage = (props) => {
             ( async () => {
                 const URI = history.location.pathname
                 const response = await fetch(`http://localhost:5000/api${URI}`)
-                console.log("🚀 ~ file: VotePage.js ~ line 211 ~ response", response)
+                // console.log("🚀 ~ file: VotePage.js ~ line 211 ~ response", response)
                 const data = await response.json()
-                console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
+                // console.log("🚀 ~ file: VotePage.js ~ line 210 ~ data", data)
                 setPollId(data.id)
             })(); 
         }
