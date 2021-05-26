@@ -6,9 +6,7 @@ exports.getLogin = (req, res) => {
     if (req.user) {
         return res.sendStatus(200)
     }
-    res.render('login', {
-        title: 'Login'
-    })
+    res.sendStatus(401)
 }
 
 exports.postLogin = (req, res, next) => {
