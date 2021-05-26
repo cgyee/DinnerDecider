@@ -15,7 +15,7 @@ const Dashboard = () => {
             const {id, ...rest} = await response.json()
             if(id) {
                 console.log("🚀 ~ file: Dashboard.js ~ line 9 ~ id", id)
-                setMyId(myId)
+                setMyId(id)
             }
             else {
                 console.log("🚀 ~ file: Dashboard.js ~ line 8 ~ response", response)            

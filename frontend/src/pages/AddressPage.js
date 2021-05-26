@@ -17,7 +17,6 @@ const AddressPage = () => {
         console.log("🚀 ~ file: AddressPage.js ~ line 17 ~ onClick ~ data", data)
         
         history.push(
-            ...history,
             {pathname:'/Vote/'+data.id},
             {id:data.id}
         )

@@ -5,6 +5,10 @@ exports.isAuthenticated = () => {
     return isLoggedIn
 }
 
+exports.unAuthenticate = () => {
+    store.set('user', false)
+}
+
 exports.authenticate = () => {
     store.set('user', true)
 }

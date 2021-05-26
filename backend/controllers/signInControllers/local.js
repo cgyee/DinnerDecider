@@ -5,7 +5,7 @@ const User = require('../../models/User')
 exports.getLogin = (req, res) => {
     if (req.user) {
         console.log("🚀 ~ file: local.js ~ line 7 ~ user", req.user)
-        return res.status(200)
+        return res.status(200).send({id:req.user.id})
     }
     res.sendStatus(401)
 }
