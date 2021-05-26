@@ -1,4 +1,10 @@
-exports.isLoggedIn = async () => {
-    const response = await fetch('http://localhost:5000/auth/local/login')
-    return response.status === 200 ? true : false;
+const store  = require('store-js')
+exports.isAuthenticated = () => {
+    const isLoggedIn = store.get('user')
+    console.log("🚀 ~ file: auth.js ~ line 4 ~ isLoggedIn", isLoggedIn)
+    return isLoggedIn
+}
+
+exports.authenticate = () => {
+    store.set('user', true)
 }

@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import VotePage from './pages/VotePage';
 import Results from './pages/Results'
 import PrivateRoute from './components/PrivateRoute'
-
+import Dashboard from './pages/Dashboard'
 /* Change my name! */
 import PollCountPage from './pages/PollCountPage'
 
@@ -20,8 +20,10 @@ function App() {
             <Router >
                 <Navbar />
                 <Switch>
-                    {/* <PrivateRoute exact path='/' component={Login}/> */}
-                    <Route exact path='/'><Login /></Route>
+                    {/* <PrivateRoute exact path='/' component={Dashboard} /> */}
+                    <Route exact path='/'><Dashboard /></Route>
+                    {/* <PrivateRoute exact path='/Login' component={Login}/> */}
+                    <Route exact path='/Login'><Login /></Route>
                     <Route exact path='/Signup'>
                         <Signup />
                     </Route>

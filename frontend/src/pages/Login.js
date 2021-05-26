@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import Inputfield from '../components/Inputfield';
+import {authenticate} from '../auth'
 
 const Login = () => {
     const postLogin = async () => {
-        const options ={
+        const options = {
             method:'POST',
             mode:'cors',
+            credentials:'include',
             headers: {
                 'Content-type':'Application/json'
             },
@@ -15,6 +17,7 @@ const Login = () => {
         const response = await fetch('http://localhost:5000/auth/local/login', options);
         console.log("🚀 ~ file: Login.js ~ line 16 ~ postLogin ~ response", response)
         if(response.status === 200) {
+            authenticate()
             history.push({
                 pathname:'/Address'
             });

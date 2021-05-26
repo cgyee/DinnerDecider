@@ -12,6 +12,9 @@ const PollSchema = new mongoose.Schema({
     voters: {
         type: [String],
         default:[]
+    },
+    winningrResult: {
+        type: String
     }
 })
 

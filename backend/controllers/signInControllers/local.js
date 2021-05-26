@@ -4,7 +4,8 @@ const User = require('../../models/User')
 
 exports.getLogin = (req, res) => {
     if (req.user) {
-        return res.sendStatus(200)
+        console.log("🚀 ~ file: local.js ~ line 7 ~ user", req.user)
+        return res.status(200)
     }
     res.sendStatus(401)
 }
@@ -29,6 +30,7 @@ exports.postLogin = (req, res, next) => {
             return res.status(400).send({message:info})
         }
         req.logIn(user, (err) => {
+            console.log("🚀 ~ file: local.js ~ line 33 ~ req.logIn ~ user", user)
             if (err) { return next(err) }
             req.flash('success', { msg: 'Success! You are logged in.' })
             res.sendStatus(200)

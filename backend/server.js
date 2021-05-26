@@ -18,29 +18,33 @@ const apiRoutes = require('./routes/api')
 require('./config/passport')(passport);
 connectDB();
 
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(cors({
+    origin:'http://localhost:3000',
+    methods:'GET, HEAD, PUT, POST',
+    credentials:true
+}));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+// Sessions
+app.use(
+    session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    })
+)
 
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store:  new MongoStore({ mongooseConnection: mongoose.connection }),
-}))
-
+// Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+
 app.use(flash())
 
 app.use(express.static(path.resolve(__dirname, '../frontend/public')));
 
 app.use('/auth', authRoutes);
 app.use('/api/', apiRoutes)
-app.post('/login/attempt', async (req, res) => {
-    const data = await req.body.does
-    console.log(data)
-})
 app.get('*', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../frontend/public', 'index.html'));
 })

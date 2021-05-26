@@ -1,17 +1,19 @@
 import React, {useState} from 'react'
 import { Redirect, Route } from 'react-router'
-import {isLoggedIn} from '../auth'
+import {isAuthenticated} from '../auth'
 
 const PrivateRoute = ({component:Component, ...rest}) => {
+    const isLoggedIn = isAuthenticated()
+    console.log("🚀 ~ file: PrivateRoute.js ~ line 7 ~ PrivateRoute ~ isLoggedIn", isLoggedIn)
     return (
-        <Route
+        isLoggedIn ?
+        (<Route
             // {...rest}
-            render={ routeProps => 
-                isLoggedIn.then(
-                    
-                )
-            }>
-        </Route>
+            render={ routeProps =>
+                <Component/>}>
+        </Route>)
+        :
+        <Redirect to='/Login' />
     )
 }
 
