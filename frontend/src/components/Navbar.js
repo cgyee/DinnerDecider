@@ -41,8 +41,11 @@ const Navbar = () =>{
                             <li className="nav-item" key='search'>
                                 <NavLink to='/Address' className="nav-link"><span>Search</span></NavLink>
                             </li>,
-                            <li className="nav-item" key='vote'>
-                                <NavLink to='/Vote' className="nav-link"><span >Vote</span></NavLink>
+                            // <li className="nav-item" key='vote'>
+                            //     <NavLink to='/Vote' className="nav-link"><span >Vote</span></NavLink>
+                            // </li>,
+                            <li className="nav-item" key='logout'>
+                                <NavLink to='/Signup' className="nav-link" onClick={logOut}><span>Logout</span></NavLink>
                             </li>,
                         ]
                     }
