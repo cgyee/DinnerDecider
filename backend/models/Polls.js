@@ -5,16 +5,23 @@ const PollSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String
+    },
     address: {
-        type:String,
+        type: String,
         required: true
     },
     voters: {
         type: [String],
-        default:[]
+        default: []
     },
     winningrResult: {
-        type: String
+        type: Object
+    },
+    isComplete: {
+        type: Boolean,
+        default: false
     }
 })
 
