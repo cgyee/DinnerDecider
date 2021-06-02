@@ -16,8 +16,9 @@ const PollSchema = new mongoose.Schema({
         type: [String],
         default: []
     },
-    winningrResult: {
-        type: Object
+    winResult: {
+        type: Object,
+        default: {}
     },
     isComplete: {
         type: Boolean,

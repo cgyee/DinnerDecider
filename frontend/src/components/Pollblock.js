@@ -36,7 +36,10 @@ const PollBlock = (props) => {
                 >
                     End
                 </button>
-                <button className="btn btn-outline-danger">
+                <button
+                    className="btn btn-outline-danger"
+                    onClick={props.onClick}
+                >
                     <i className="fas fa-trash"></i>
                 </button>
             </div>

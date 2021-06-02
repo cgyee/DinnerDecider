@@ -18,22 +18,22 @@ require('./config/passport')(passport)
 connectDB()
 
 app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    methods: 'GET, HEAD, PUT, POST',
-    credentials: true
-  })
+    cors({
+        origin: 'http://localhost:3000',
+        methods: 'GET, HEAD, PUT, POST, DELETE',
+        credentials: true
+    })
 )
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // Sessions
 app.use(
-  session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-  })
+    session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({ mongooseConnection: mongoose.connection })
+    })
 )
 
 // Passport middleware
@@ -47,9 +47,11 @@ app.use(express.static(path.resolve(__dirname, '../frontend/public')))
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
 app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, '../frontend/public', 'index.html'))
+    response.sendFile(
+        path.resolve(__dirname, '../frontend/public', 'index.html')
+    )
 })
 
 app.listen(process.env.PORT || PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
+    console.log(`Example app listening at http://localhost:${PORT}`)
 })

@@ -32,7 +32,7 @@ const Dashboard = () => {
         })
         const data = await response.json()
         const { id } = data
-        setOngoingPolls(...onGoingPolls, { address: zip, name, id })
+        setOngoingPolls([...onGoingPolls, { address: zip, name, _id: id }])
 
         console.log(
             '🚀 ~ file: Dashboard.js ~ line 45 ~ createNewPoll ~ data',
@@ -40,30 +40,38 @@ const Dashboard = () => {
         )
     }
     const deletePoll = async (id) => {
-        const response = await fetch(`${baseUrl}/api/Poll/delete/${id}`, {
+        const response = await fetch(`${baseUrl}/api/Poll/Delete/${id}`, {
             ...options,
             method: 'DELETE',
             body: JSON.stringify({ id })
         })
-        const data = response.json()
+        console.log(
+            '🚀 ~ file: Dashboard.js ~ line 48 ~ deletePoll ~ response',
+            response
+        )
+        if (response.status == 200) {
+            setOngoingPolls(onGoingPolls.filter((poll) => poll._id != id))
+        }
+        const data = await response.json()
     }
 
     useEffect(() => {
-        // ;(async () => {
-        //     const response = await fetch(
-        //         `http://localhost:5000/api/Poll/Results`,
-        //         {
-        //             ...options,
-        //             method: 'GET'
-        //         }
-        //     )
-        //     const resturantInfo = await response.json()
-        //     setResturantInfo(resturantInfo)
-        //     console.log(
-        //         '🚀 ~ file: Results.js ~ line 20 ~ resturantInfo',
-        //         resturantInfo
-        //     )
-        // })()
+        ;(async () => {
+            const response = await fetch(
+                `http://localhost:5000/api/Poll/Results`,
+                {
+                    ...options,
+                    method: 'GET'
+                }
+            )
+            const { poll } = await response.json()
+            const resturantInfo = poll
+            console.log(
+                '🚀 ~ file: Dashboard.js ~ line 61 ~ ; ~ resturantInfo',
+                resturantInfo
+            )
+            // setResturantInfo(resturantInfo)
+        })()
         ;(async () => {
             const response = await fetch(`${baseUrl}/api/Poll/getPolls`, {
                 ...options,
@@ -73,7 +81,7 @@ const Dashboard = () => {
             const { polls } = data
 
             console.log('🚀 ~ file: Dashboard.js ~ line 63 ~ data', data.polls)
-            setOngoingPolls(polls.filter((p) => !p.isComplete))
+            polls && setOngoingPolls([...polls.filter((p) => !p.isComplete)])
         })()
     }, [setResturantInfo, setOngoingPolls])
 
@@ -107,7 +115,11 @@ const Dashboard = () => {
             {/* Current Polling  Section*/}
             {onGoingPolls &&
                 onGoingPolls.map((poll) => (
-                    <PollBlock key={poll._id} {...poll} />
+                    <PollBlock
+                        key={poll._id}
+                        {...poll}
+                        onClick={() => deletePoll(poll._id)}
+                    />
                 ))}
 
             {/* Results section */}

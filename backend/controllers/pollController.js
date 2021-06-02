@@ -59,10 +59,6 @@ module.exports = {
             votes.forEach((vote) => {
                 votesArray.push(vote.categories)
             })
-            console.log(
-                '🚀 ~ file: resultsController.js ~ line 17 ~ votes.forEach ~ votes',
-                votes
-            )
             let max = -1
             let category
 
@@ -77,10 +73,6 @@ module.exports = {
                 }
             })
 
-            console.log(
-                '🚀 ~ file: resultsController.js ~ line 30 ~ getResult:async ~ category',
-                category
-            )
             const myHeader = {
                 Authorization: `Bearer ${process.env.YELP_API_KEY}`
             }
@@ -113,22 +105,19 @@ module.exports = {
                 state,
                 display_address
             } = location
-            const p = await Polls.findByIdAndUpdate(
+            const updateDoc = await Polls.updateOne(
                 { _id: pollId },
                 {
                     winningResult: {
                         name,
                         image_url,
+                        country,
+                        display_address,
                         rating,
                         phone,
-                        review_count,
-                        display_address
+                        review_count
                     }
                 }
-            )
-            console.log(
-                '🚀 ~ file: pollController.js ~ line 129 ~ getResult: ~ p',
-                p
             )
             res.json({
                 name,
@@ -145,6 +134,10 @@ module.exports = {
     },
     getResults: async (req, res) => {
         const author = req.user.id
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 148 ~ getResults: ~ author',
+            author
+        )
         const polls = await Polls.find({ author })
         const completedPolls = polls.filter((poll) => poll.isComplete)
         console.log(
@@ -153,5 +146,16 @@ module.exports = {
         )
         const winningResults = completedPolls.map((poll) => poll.winningResult)
         res.send({ poll: winningResults })
+    },
+    deletePoll: async (req, res) => {
+        const author = req.user.id
+        const id = req.params.id
+
+        const poll = await Polls.deleteOne({ author, _id: id })
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 163 ~ deletePoll ~ poll',
+            poll
+        )
+        res.sendStatus(200)
     }
 }

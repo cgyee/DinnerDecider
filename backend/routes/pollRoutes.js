@@ -6,5 +6,6 @@ router.get('/getPolls', poll.getPolls)
 router.post('/createNewPoll', poll.createNewPoll)
 router.get('/Results/:id', poll.getResult)
 router.get('/Results', poll.getResults)
+router.delete('/Delete/:id', poll.deletePoll)
 
 module.exports = router

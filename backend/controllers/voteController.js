@@ -29,7 +29,7 @@ module.exports = {
             const vote = await Votes.create({ pollId, categories })
             const poll = await Polls.findByIdAndUpdate(
                 { _id: pollId },
-                { $push: { voters: pollId }, isComplete: true }
+                { $push: { voters: pollId }, $set: { isComplete: true } }
             )
             const count = poll.voters.length + 1
             console.log(
