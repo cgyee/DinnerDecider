@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const pusher = require('../config/pusher')
 const Polls = require('../models/Polls')
 const Votes = require('../models/Votes')
-
+//TODO remove/delete this file redundant
 module.exports = {
     getResturant: async (req, res) => {
         try {

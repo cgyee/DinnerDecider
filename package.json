@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd frontend && npm start",
     "server": "cd backend && nodemon server.js",
-    "debug": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "debug-server": "cd backend && nodemon --inspect server.js",
+    "debug-server-brk": "cd backend && nodemon --inspect-brk server.js",
+    "debug": "concurrently --kill-others-on-fail \"npm run debug-server\" \"npm run client\"",
+    "debug-brk": "concurrently --kill-others-on-fail \"npm run debug-server-brk\" \"npm run client\"",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "format": "prettier --write backend/*.js"
   },

@@ -20,13 +20,14 @@ module.exports = {
             const poll = await Polls.create({
                 author: req.user.id,
                 name,
-                address: zip
+                address: zip,
+                winningResult: { o: 'poop' }
             })
             console.log(
                 '🚀 ~ file: resturantInfo.js ~ line 18 ~ postZip:async ~ poll',
                 poll
             )
-            res.json({ name, id: poll._id, address })
+            res.json({ name, id: poll._id, address: zip })
         } catch (error) {
             console.log(error)
         }
@@ -53,6 +54,7 @@ module.exports = {
             const votes = await Votes.find({ pollId })
             const poll = await Polls.findById({ _id: pollId })
             const address = poll.address
+            const pollName = poll.name
 
             let votesArray = []
             let voteCounts = {}
@@ -105,29 +107,24 @@ module.exports = {
                 state,
                 display_address
             } = location
-            const updateDoc = await Polls.updateOne(
-                { _id: pollId },
-                {
-                    winningResult: {
-                        name,
-                        image_url,
-                        country,
-                        display_address,
-                        rating,
-                        phone,
-                        review_count
-                    }
-                }
-            )
-            res.json({
+
+            const winResult = {
+                _id: pollId,
+                pollName,
                 name,
                 image_url,
-                country,
-                display_address,
                 rating,
                 phone,
-                review_count
-            })
+                review_count,
+                display_address
+            }
+
+            const result = await Polls.findOneAndUpdate(
+                { _id: pollId },
+                { $set: { winResult } }
+            )
+
+            res.json({ ...winResult })
         } catch (error) {
             console.log(error)
         }
@@ -144,8 +141,8 @@ module.exports = {
             '🚀 ~ file: pollController.js ~ line 150 ~ getResults:async ~ completedPolls',
             completedPolls
         )
-        const winningResults = completedPolls.map((poll) => poll.winningResult)
-        res.send({ poll: winningResults })
+        const winningResults = completedPolls.map((poll) => poll.winResult)
+        res.send({ polls: winningResults })
     },
     deletePoll: async (req, res) => {
         const author = req.user.id

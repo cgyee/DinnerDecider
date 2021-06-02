@@ -11,6 +11,7 @@ const Dashboard = () => {
     const [zipCode, setZipCode] = useState('')
     const [pollName, setPollName] = useState('')
     const [onGoingPolls, setOngoingPolls] = useState([])
+
     console.log(
         '🚀 ~ file: Dashboard.js ~ line 13 ~ Dashboard ~ onGoingPolls',
         onGoingPolls
@@ -23,10 +24,11 @@ const Dashboard = () => {
     }
 
     const onChange = (e, cb) => cb(e.target.value)
+
     const createNewPoll = async () => {
         const zip = zipCode
         const name = pollName
-        const response = await fetch(`${baseUrl}/api/createNewPoll`, {
+        const response = await fetch(`${baseUrl}/api/Poll/createNewPoll`, {
             ...options,
             body: JSON.stringify({ zip, name })
         })
@@ -39,20 +41,26 @@ const Dashboard = () => {
             data
         )
     }
-    const deletePoll = async (id) => {
-        const response = await fetch(`${baseUrl}/api/Poll/Delete/${id}`, {
-            ...options,
-            method: 'DELETE',
-            body: JSON.stringify({ id })
-        })
-        console.log(
-            '🚀 ~ file: Dashboard.js ~ line 48 ~ deletePoll ~ response',
-            response
-        )
-        if (response.status == 200) {
-            setOngoingPolls(onGoingPolls.filter((poll) => poll._id != id))
+    const deletePoll = async (state, effect, id) => {
+        try {
+            const response = await fetch(`${baseUrl}/api/Poll/Delete/${id}`, {
+                ...options,
+                method: 'DELETE'
+            })
+            console.log(
+                '🚀 ~ file: Dashboard.js ~ line 48 ~ deletePoll ~ response',
+                response
+            )
+            if (response.status == 200) {
+                effect(state.filter((poll) => poll._id != id))
+            }
+            const data = await response.json()
+        } catch (error) {
+            console.log(
+                '🚀 ~ file: Dashboard.js ~ line 69 ~ deletePoll ~ error',
+                error
+            )
         }
-        const data = await response.json()
     }
 
     useEffect(() => {
@@ -64,13 +72,13 @@ const Dashboard = () => {
                     method: 'GET'
                 }
             )
-            const { poll } = await response.json()
-            const resturantInfo = poll
+            const { polls } = await response.json()
+            const resturantInfo = polls
             console.log(
                 '🚀 ~ file: Dashboard.js ~ line 61 ~ ; ~ resturantInfo',
                 resturantInfo
             )
-            // setResturantInfo(resturantInfo)
+            setResturantInfo(resturantInfo)
         })()
         ;(async () => {
             const response = await fetch(`${baseUrl}/api/Poll/getPolls`, {
@@ -118,7 +126,9 @@ const Dashboard = () => {
                     <PollBlock
                         key={poll._id}
                         {...poll}
-                        onClick={() => deletePoll(poll._id)}
+                        onClick={() =>
+                            deletePoll(onGoingPolls, setOngoingPolls, poll._id)
+                        }
                     />
                 ))}
 
@@ -126,6 +136,7 @@ const Dashboard = () => {
             {resturantInfo &&
                 resturantInfo.map((resturant) => (
                     <div
+                        key={resturant._id}
                         className="w-75 p-3"
                         style={{
                             margin: '10px auto',
@@ -138,7 +149,16 @@ const Dashboard = () => {
                             <button className="btn btn-success w-50">
                                 <i className="fas fa-info-circle"></i>
                             </button>
-                            <button className="btn btn-danger w-50">
+                            <button
+                                className="btn btn-danger w-50"
+                                onClick={() =>
+                                    deletePoll(
+                                        resturantInfo,
+                                        setResturantInfo,
+                                        resturant._id
+                                    )
+                                }
+                            >
                                 <i className="far fa-minus-square"></i>
                             </button>
                         </div>

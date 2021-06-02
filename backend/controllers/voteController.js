@@ -32,10 +32,6 @@ module.exports = {
                 { $push: { voters: pollId }, $set: { isComplete: true } }
             )
             const count = poll.voters.length + 1
-            console.log(
-                '🚀 ~ file: resturantInfo.js ~ line 53 ~ putPollEntry:async ~ poll.voters.length',
-                poll.voters.length
-            )
             pusher.pushVote(count)
             res.status(200).send(categories)
         } catch (error) {

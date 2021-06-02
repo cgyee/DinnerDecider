@@ -14,13 +14,22 @@
             "type": "pwa-node"
         },
         {
+            "name": "Attach",
+            "port": 9229,
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
             "type": "pwa-node",
             "request": "launch",
             "name": "Launch Program",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "../../../opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/config/lib/loader"
+            "program": "${workspaceFolder}/backend/server.js"
         }
     ]
 }
