@@ -28,7 +28,7 @@ const Dashboard = () => {
     const createNewPoll = async () => {
         const zip = zipCode
         const name = pollName
-        const response = await fetch(`${baseUrl}/api/Poll/createNewPoll`, {
+        const response = await fetch(`/api/Poll/createNewPoll`, {
             ...options,
             body: JSON.stringify({ zip, name })
         })
@@ -41,18 +41,14 @@ const Dashboard = () => {
             data
         )
     }
-    const deletePoll = async (state, effect, id) => {
+    const deletePoll = async (state, setState, id) => {
         try {
-            const response = await fetch(`${baseUrl}/api/Poll/Delete/${id}`, {
+            const response = await fetch(`/api/Poll/Delete/${id}`, {
                 ...options,
                 method: 'DELETE'
             })
-            console.log(
-                '🚀 ~ file: Dashboard.js ~ line 48 ~ deletePoll ~ response',
-                response
-            )
             if (response.status == 200) {
-                effect(state.filter((poll) => poll._id != id))
+                setState(state.filter((poll) => poll._id != id))
             }
             const data = await response.json()
         } catch (error) {
@@ -65,13 +61,10 @@ const Dashboard = () => {
 
     useEffect(() => {
         ;(async () => {
-            const response = await fetch(
-                `http://localhost:5000/api/Poll/Results`,
-                {
-                    ...options,
-                    method: 'GET'
-                }
-            )
+            const response = await fetch(`/api/Poll/Results`, {
+                ...options,
+                method: 'GET'
+            })
             const { polls } = await response.json()
             const resturantInfo = polls
             console.log(
@@ -81,7 +74,7 @@ const Dashboard = () => {
             setResturantInfo(resturantInfo)
         })()
         ;(async () => {
-            const response = await fetch(`${baseUrl}/api/Poll/getPolls`, {
+            const response = await fetch(`/api/Poll/getPolls`, {
                 ...options,
                 method: 'GET'
             })

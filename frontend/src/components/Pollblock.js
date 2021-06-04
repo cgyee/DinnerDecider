@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { baseUrl } from '../urlpath'
 
 const PollBlock = (props) => {
+    //TODO update me to use variable for paths!
+    const url = `http://localhost:3000/Vote/${props._id}`
     const history = useHistory()
+    const [text, setText] = useState(url)
+    const [isCopied, setIsCopied] = useState(false)
+
+    const onCopyText = () => {
+        setIsCopied(true)
+        setTimeout(() => {
+            setIsCopied(false)
+        }, 1000)
+    }
     const goToPollVote = (id) =>
         history.push({ pathname: `/Vote/${id}`, state: { id } })
     const goToPollResults = (id) =>
@@ -19,23 +32,27 @@ const PollBlock = (props) => {
                 {props.name}
             </span>
             <div className="btn-group col">
-                <button className="btn btn-outline-primary" data-id={props._id}>
-                    <i className="far fa-clipboard"></i>
-                    Share
-                </button>
+                <CopyToClipboard text={text} onCopy={onCopyText}>
+                    <button
+                        className="btn btn-outline-primary"
+                        data-id={props._id}
+                    >
+                        <i className="far fa-clipboard"></i>
+                    </button>
+                </CopyToClipboard>
                 <button
                     onClick={(e) => goToPollVote(props._id)}
                     className="btn btn-outline-primary"
                 >
                     Vote
                 </button>
-                <button
+                {/* <button
                     disabled={!props.isComplete}
                     onClick={(e) => goToPollResults(props._id)}
                     className="btn btn-outline-danger"
                 >
                     End
-                </button>
+                </button> */}
                 <button
                     className="btn btn-outline-danger"
                     onClick={props.onClick}

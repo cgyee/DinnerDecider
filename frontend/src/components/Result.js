@@ -1,17 +1,17 @@
 import React from 'react'
 
 const Result = (props) => {
-    console.log(
-        '🚀 ~ file: Result.js ~ line 23 ~ Result ~ props.display_address',
-        props.display_address
+    let stars = new Array(5).fill(
+        <i style={{ color: 'gold' }} class="fas fa-star col"></i>
     )
-    let stars = new Array(5).fill(<i class="fas fa-star col"></i>)
     for (let i = 0; i < 5 - Math.floor(props.rating); i++) {
-        stars[Math.floor(props.rating) - i] = <i class="far fa-star col"></i>
+        stars[Math.floor(props.rating) - i] = (
+            <i style={{ color: 'gold' }} class="far fa-star col"></i>
+        )
     }
     if (props.rating % Math.floor(props.rating) >= 0.5) {
         stars[Math.floor(props.rating)] = (
-            <i class="fas fa-star-half-alt col"></i>
+            <i style={{ color: 'gold' }} class="fas fa-star-half-alt col"></i>
         )
     }
     return (
@@ -27,7 +27,7 @@ const Result = (props) => {
                 <div className="col-md-8">
                     <div className="card-body">
                         <h5 className="card-title">{props.name}</h5>
-                        <div className="row">
+                        <div className="card-body row">
                             <h6 className="col">
                                 Reviews({props.review_count})
                             </h6>

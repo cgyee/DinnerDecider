@@ -23,6 +23,10 @@ const PollSchema = new mongoose.Schema({
     isComplete: {
         type: Boolean,
         default: false
+    },
+    created: {
+        type: Date,
+        default: Date.now()
     }
 })
 

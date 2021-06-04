@@ -9,24 +9,12 @@ module.exports = {
         try {
             const zip = req.body.zip
             const name = req.body.name
-            console.log(
-                '🚀 ~ file: resturantInfo.js ~ line 41 ~ createNewPoll: ~ name',
-                name
-            )
-            console.log(
-                '🚀 ~ file: resturantInfo.js ~ line 19 ~ postZip: ~ zip',
-                zip
-            )
             const poll = await Polls.create({
                 author: req.user.id,
                 name,
                 address: zip,
                 winningResult: { o: 'poop' }
             })
-            console.log(
-                '🚀 ~ file: resturantInfo.js ~ line 18 ~ postZip:async ~ poll',
-                poll
-            )
             res.json({ name, id: poll._id, address: zip })
         } catch (error) {
             console.log(error)
@@ -36,10 +24,6 @@ module.exports = {
         try {
             const author = req.user.id
             const polls = await Polls.find({ author })
-            console.log(
-                '🚀 ~ file: pollController.js ~ line 38 ~ getPolls: ~ polls',
-                polls
-            )
             res.send({ polls })
         } catch (error) {
             console.log(
@@ -137,10 +121,6 @@ module.exports = {
         )
         const polls = await Polls.find({ author })
         const completedPolls = polls.filter((poll) => poll.isComplete)
-        console.log(
-            '🚀 ~ file: pollController.js ~ line 150 ~ getResults:async ~ completedPolls',
-            completedPolls
-        )
         const winningResults = completedPolls.map((poll) => poll.winResult)
         res.send({ polls: winningResults })
     },
@@ -149,10 +129,6 @@ module.exports = {
         const id = req.params.id
 
         const poll = await Polls.deleteOne({ author, _id: id })
-        console.log(
-            '🚀 ~ file: pollController.js ~ line 163 ~ deletePoll ~ poll',
-            poll
-        )
         res.sendStatus(200)
     }
 }
