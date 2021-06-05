@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev-build": "npm i && react-scripts build",
-    "build": "npm i",
+    "build": "npm i && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
