@@ -14,45 +14,53 @@ import { isAuthenticated } from './auth'
 
 const context = React.createContext(isAuthenticated())
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Navbar />
-        <Switch>
-          <PrivateRoute
-            exact
-            path="/"
-            redirect="/Login"
-            component={Dashboard}
-          />
-          {/* <Route exact path='/'><Dashboard /></Route> */}
-          {/* <PrivateRoute exact path='/Login' component={Login}/> */}
-          <Route exact path="/Login">
-            <Login />
-          </Route>
-          <Route exact path="/Signup">
-            <Signup />
-          </Route>
-          <Route exact path="/Address">
-            <AddressPage />
-          </Route>
-          <Route
-            path="/Vote"
-            render={(routeProps) => <VotePage {...routeProps} />}
-          ></Route>
-          <Route
-            path="/Results"
-            render={(routeProps) => <Results {...routeProps} />}
-          ></Route>
-          {/* Update me when name is changed! */}
-          <Route
-            path="/Callvotes"
-            render={(routeProps) => <PollCountPage {...routeProps} />}
-          ></Route>
-        </Switch>
-      </Router>
-    </div>
-  )
+    return (
+        <div className="App">
+            <Router>
+                <Navbar />
+                <Switch>
+                    <PrivateRoute
+                        exact
+                        path="/"
+                        redirect="/Login"
+                        component={Dashboard}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/Dashboard"
+                        redirect="/Login"
+                        component={Dashboard}
+                    />
+                    {/* <Route exact path='/'><Dashboard /></Route> */}
+                    {/* <PrivateRoute exact path='/Login' component={Login}/> */}
+                    <Route exact path="/Login">
+                        <Login />
+                    </Route>
+                    <Route exact path="/Signup">
+                        <Signup />
+                    </Route>
+                    <Route exact path="/Address">
+                        <AddressPage />
+                    </Route>
+                    <Route
+                        path="/Vote"
+                        render={(routeProps) => <VotePage {...routeProps} />}
+                    ></Route>
+                    <Route
+                        path="/Results"
+                        render={(routeProps) => <Results {...routeProps} />}
+                    ></Route>
+                    {/* Update me when name is changed! */}
+                    <Route
+                        path="/Callvotes"
+                        render={(routeProps) => (
+                            <PollCountPage {...routeProps} />
+                        )}
+                    ></Route>
+                </Switch>
+            </Router>
+        </div>
+    )
 }
 
 export default App

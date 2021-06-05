@@ -42,12 +42,17 @@ app.use(passport.session())
 
 app.use(flash())
 
+//Update me to use public when tesing dev
+// app.use(express.static(path.resolve(__dirname, '../frontend/public')))
 app.use(express.static(path.resolve(__dirname, '../frontend/build')))
 
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
+
+// Update me to use public when testing in dev
 app.get('*', (request, response) => {
     response.sendFile(
+        // path.resolve(__dirname, '../frontend/public', 'index.html')
         path.resolve(__dirname, '../frontend/build', 'index.html')
     )
 })

@@ -25,7 +25,7 @@ const Login = () => {
         if (response.status === 200) {
             authenticate()
             history.push({
-                pathname: '/Address'
+                pathname: '/Dashboard'
             })
         } else {
             const { message } = await response.json()
@@ -69,6 +69,7 @@ const Login = () => {
                     >
                         Submit
                     </button>
+                    {/* URI is incorrect! update to use proper endpoint! */}
                     <a className="btn" href="http://localhost:8080/auth/login">
                         <img
                             src="./static/ms-symbollockup_signin_dark_short.png"

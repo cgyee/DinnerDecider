@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"cd frontend && npm run build",
-    "start":"cd backend && node server.js",
+    "dev-build": "cd frontend && npm run dev-build",
+    "build": "cd backend && npm run build",
+    "heroku-postBuild":" cd front && npm run dev-build",
+    "start": "cd backend && node server.js",
     "client": "cd frontend && npm start",
     "server": "cd backend && nodemon server.js",
     "debug-server": "cd backend && nodemon --inspect server.js",
@@ -36,5 +38,4 @@
     "prettier": "2.2.1"
   },
   "proxy": "http:localhost:5000"
-  
 }
