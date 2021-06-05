@@ -6,17 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-build": "cd frontend && npm run dev-build",
-    "build": "cd backend && npm run build",
-    "heroku-postBuild":" cd front && npm run dev-build",
-    "start": "cd backend && node server.js",
+    "build": "npm run build",
+    "heroku-postBuild": " cd frontend && npm run dev-build",
+    "start": "node server.js",
     "client": "cd frontend && npm start",
-    "server": "cd backend && nodemon server.js",
-    "debug-server": "cd backend && nodemon --inspect server.js",
-    "debug-server-brk": "cd backend && nodemon --inspect-brk server.js",
+    "server": "nodemon server.js",
+    "debug-server": "nodemon --inspect server.js",
+    "debug-server-brk": "nodemon --inspect-brk server.js",
     "debug": "concurrently --kill-others-on-fail \"npm run debug-server\" \"npm run client\"",
     "debug-brk": "concurrently --kill-others-on-fail \"npm run debug-server-brk\" \"npm run client\"",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "format": "prettier --write backend/*.js"
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -29,10 +28,23 @@
   },
   "homepage": "https://github.com/cgyee/DinnerDecider#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "concurrently": "^6.0.2",
+    "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "express-flash": "^0.0.2",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.3",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
-    "react-redux": "^7.2.4"
+    "passport": "^0.4.1",
+    "passport-azure-ad": "^4.3.0",
+    "passport-local": "^1.0.0",
+    "pusher": "^5.0.0",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "prettier": "2.2.1"
