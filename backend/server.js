@@ -42,13 +42,13 @@ app.use(passport.session())
 
 app.use(flash())
 
-app.use(express.static(path.resolve(__dirname, '../frontend/public')))
+app.use(express.static(path.resolve(__dirname, '../frontend/build')))
 
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
 app.get('*', (request, response) => {
     response.sendFile(
-        path.resolve(__dirname, '../frontend/public', 'index.html')
+        path.resolve(__dirname, '../frontend/build', 'index.html')
     )
 })
 
