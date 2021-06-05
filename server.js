@@ -44,7 +44,7 @@ app.use(flash())
 
 //Update me to use public when tesing dev
 // app.use(express.static(path.resolve(__dirname, '../frontend/public')))
-app.use(express.static(path.resolve(__dirname, './frontend/build')))
+app.use(express.static(path.resolve(__dirname, './client/build')))
 
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
@@ -53,7 +53,7 @@ app.use('/api/', apiRoutes)
 app.get('*', (request, response) => {
     response.sendFile(
         // path.resolve(__dirname, '../frontend/public', 'index.html')
-        path.resolve(__dirname, './frontend/build', 'index.html')
+        path.resolve(__dirname, './client/build', 'index.html')
     )
 })
 
