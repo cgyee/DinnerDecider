@@ -9,7 +9,7 @@ import Results from './pages/Results'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/Dashboard'
 /* Change my name! */
-import PollCountPage from './pages/PollCountPage'
+// import PollCountPage from './pages/PollCountPage'
 import { isAuthenticated } from './auth'
 
 const context = React.createContext(isAuthenticated())
@@ -51,12 +51,12 @@ function App() {
                         render={(routeProps) => <Results {...routeProps} />}
                     ></Route>
                     {/* Update me when name is changed! */}
-                    <Route
+                    {/* <Route
                         path="/Callvotes"
                         render={(routeProps) => (
                             <PollCountPage {...routeProps} />
                         )}
-                    ></Route>
+                    ></Route> */}
                 </Switch>
             </Router>
         </div>
