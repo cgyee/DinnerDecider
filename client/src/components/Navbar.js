@@ -6,7 +6,7 @@ import { baseUrl } from '../urlpath'
 const Navbar = () => {
     const isLoggedIn = isAuthenticated()
     const logOut = () => {
-        fetch(`${baseUrl}/local/logout`, {
+        fetch(`/auth/logout`, {
             method: 'GET',
             mode: 'cors',
             credentials: 'include'

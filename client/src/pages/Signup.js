@@ -8,10 +8,11 @@ const Signup = () => {
     const [passwordFieldMain, setPasswordFieldMain] = useState('')
     const [passwordFieldSecondary, setPasswordFieldSecondary] = useState('')
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+    const [username, setUserName] = useState('')
     const history = useHistory()
 
     useEffect(() => {
-        email && passwordFieldMain === passwordFieldSecondary
+        email && username && passwordFieldMain === passwordFieldSecondary
             ? setIsButtonDisabled(false)
             : setIsButtonDisabled(true)
     }, [email, passwordFieldMain, passwordFieldSecondary])
@@ -23,7 +24,11 @@ const Signup = () => {
             headers: {
                 'Content-type': 'Application/json'
             },
-            body: JSON.stringify({ email, password: passwordFieldMain })
+            body: JSON.stringify({
+                email,
+                password: passwordFieldMain,
+                userName: username
+            })
         }
         const response = await fetch('/auth/local/signup', options)
         if (response.status === 201) {
@@ -57,6 +62,12 @@ const Signup = () => {
                     placeholder={'Email'}
                     type="email"
                     updateParentState={setEmail}
+                />
+                <Inputfield
+                    className={'form-input'}
+                    placeholder={'Username'}
+                    type="text"
+                    updateParentState={setUserName}
                 />
                 <Inputfield
                     className={'form-input'}

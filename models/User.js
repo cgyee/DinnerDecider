@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     polls: {
         type: [String],
         default: []
+    },
+    userName: {
+        type: String,
+        required: true
     }
 })
 

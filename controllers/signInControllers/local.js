@@ -19,11 +19,6 @@ exports.postLogin = (req, res, next) => {
         validationErrors.push('Password cannot be blank.')
 
     if (validationErrors.length) {
-        req.flash('errors', validationErrors)
-        console.log(
-            '🚀 ~ file: local.js ~ line 30 ~ validationErrors',
-            validationErrors
-        )
         return res.status(401).send({ message: validationErrors.join(' ') })
     }
     req.body.email = validator.normalizeEmail(req.body.email, {
@@ -46,7 +41,6 @@ exports.postLogin = (req, res, next) => {
             if (err) {
                 return next(err)
             }
-            req.flash('success', { msg: 'Success! You are logged in.' })
             res.sendStatus(200)
         })
     })(req, res, next)
@@ -106,16 +100,6 @@ exports.postSignup = (req, res, next) => {
                 return next(err)
             }
             if (existingUser) {
-                req.flash('errors', {
-                    msg:
-                        'Account with that email address or username already exists.'
-                })
-                return res
-                    .status(409)
-                    .send({
-                        message:
-                            'Account with that email address or username already exists.'
-                    })
             }
             user.save((err) => {
                 if (err) {
@@ -126,7 +110,6 @@ exports.postSignup = (req, res, next) => {
                         return next(err)
                     }
                     res.sendStatus(201)
-                    // res.redirect('/post')
                 })
             })
         }
