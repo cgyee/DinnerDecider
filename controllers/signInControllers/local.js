@@ -36,14 +36,10 @@ exports.postLogin = (req, res, next) => {
         }
 
         req.logIn(user, (err) => {
-            console.log(
-                '🚀 ~ file: local.js ~ line 33 ~ req.logIn ~ user',
-                user
-            )
             if (err) {
                 return next(err)
             }
-            const body = { _id: user._id, email: user.email }
+            const body = { id: user.id, email: user.email }
             const token = jwt.sign({ user: body }, 'TOP_SECRET')
 
             return res.json({ token })

@@ -99,9 +99,7 @@ module.exports = function (passport) {
             new JWTstrategy(
                 {
                     secretOrKey: 'TOP_SECRET',
-                    jwtFromRequest: ExtractJWT.fromUrlQueryParameter(
-                        'secret_token'
-                    )
+                    jwtFromRequest: ExtractJWT.fromBodyField('token')
                 },
                 async (token, done) => {
                     console.log(
@@ -117,6 +115,10 @@ module.exports = function (passport) {
             )
         )
     passport.serializeUser((user, done) => {
+        console.log(
+            '🚀 ~ file: passport.js ~ line 118 ~ passport.serializeUser ~ user',
+            user
+        )
         done(null, user.id)
     })
 

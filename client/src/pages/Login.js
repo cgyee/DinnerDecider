@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Inputfield from '../components/Inputfield'
-import { authenticate } from '../auth'
+import { useAuth } from '../auth'
+import store from 'store-js'
 
 const Login = () => {
+    const { authenticate } = useAuth()
     const postLogin = async () => {
         const options = {
             method: 'POST',
@@ -21,6 +23,8 @@ const Login = () => {
         const data = await response.json()
         console.log('🚀 ~ file: Login.js ~ line 22 ~ postLogin ~ data', data)
         if (response.status === 200) {
+            //If successful store the token in localStorage
+            store.set('token', data.token)
             authenticate()
             history.push({
                 pathname: '/Dashboard'

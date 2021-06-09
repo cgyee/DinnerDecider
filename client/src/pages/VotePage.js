@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AsyncSelect from 'react-select/async'
 import { useHistory } from 'react-router-dom'
+import store from 'store-js'
 
 const defaultOptions = [
     { label: 'American', value: 'tradamerican' },
@@ -214,12 +215,13 @@ const VotePage = (props) => {
         try {
             const URI = history.location.pathname
             console.log('🚀 ~ file: VotePage.js ~ line 218 ~ URI', URI)
+            const token = store.get('token')
             const categories = { ...selectedOptions }
             const response = await fetch(`http://localhost:5000/api${URI}`, {
                 method: 'PUT',
                 mode: 'cors',
                 headers: { 'Content-type': 'Application/json' },
-                body: JSON.stringify({ categories })
+                body: JSON.stringify({ categories, token })
             })
             const data = await response.json()
             history.push({

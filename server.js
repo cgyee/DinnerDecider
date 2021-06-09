@@ -1,5 +1,4 @@
 const express = require('express')
-const flash = require('express-flash')
 const app = express()
 const cors = require('cors')
 const session = require('express-session')
@@ -14,9 +13,14 @@ const PORT = 5000
 const authRoutes = require('./routes/authRoutes')
 const apiRoutes = require('./routes/api')
 
+//Configuring Express middleware
 require('./config/passport')(passport)
 connectDB()
 
+/* 
+This is used in dev enviroment to do send cookies request/response with CORS, as React runs on port 3000 and Node on port 5000
+Unnecesary in production as requests/response come from the same origin
+*/
 app.use(
     cors({
         origin: 'http://localhost:3000',
@@ -40,15 +44,15 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(flash())
-
 //Update me to use public when tesing dev
 app.use(express.static(path.resolve(__dirname, './client/public')))
 // app.use(express.static(path.resolve(__dirname, './client/build')))
 
+/* This is where our authentication routes and api routes are */
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
 
+//If a GET request is made to any route not specified just run the index file
 // Update me to use public when testing in dev
 app.get('*', (request, response) => {
     response.sendFile(

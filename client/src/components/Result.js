@@ -38,10 +38,10 @@ const Result = (props) => {
                                 </div>
                             </h6>
                         </div>
-                        <h7 className="card-subtitle text-muted">
+                        <h6 className="card-subtitle text-muted">
                             {props.display_address &&
                                 props.display_address.join(', ')}
-                        </h7>
+                        </h6>
                         <p className="card-text">
                             <small className="text-muted">{props.phone}</small>
                         </p>
