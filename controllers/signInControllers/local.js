@@ -1,5 +1,6 @@
 const passport = require('passport')
 const validator = require('validator')
+const jwt = require('jsonwebtoken')
 const User = require('../../models/User')
 
 exports.getLogin = (req, res) => {
@@ -33,6 +34,7 @@ exports.postLogin = (req, res, next) => {
             req.flash('errors', info)
             return res.status(400).send({ message: info })
         }
+
         req.logIn(user, (err) => {
             console.log(
                 '🚀 ~ file: local.js ~ line 33 ~ req.logIn ~ user',
@@ -41,7 +43,10 @@ exports.postLogin = (req, res, next) => {
             if (err) {
                 return next(err)
             }
-            res.sendStatus(200)
+            const body = { _id: user._id, email: user.email }
+            const token = jwt.sign({ user: body }, 'TOP_SECRET')
+
+            return res.json({ token })
         })
     })(req, res, next)
 }

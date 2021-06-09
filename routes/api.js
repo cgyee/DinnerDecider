@@ -4,11 +4,7 @@ const voteRoutes = require('./voteRoutes')
 const detailsController = require('../controllers/resturantInfo')
 const resultsRoutes = require('./resultsRoutes')
 const pollRoutes = require('./pollRoutes')
-
-//TODO delete redundant routes and associated controllers, change update frontend with new routes
-router.get('/resturant', detailsController.getResturant)
-router.post('/address', detailsController.postZip)
-//
+const passport = require('passport')
 
 router.use('/Vote', voteRoutes)
 router.use('/Results', resultsRoutes)

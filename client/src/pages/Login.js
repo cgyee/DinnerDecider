@@ -18,10 +18,8 @@ const Login = () => {
             })
         }
         const response = await fetch('/auth/local/login', options)
-        console.log(
-            '🚀 ~ file: Login.js ~ line 16 ~ postLogin ~ response',
-            response
-        )
+        const data = await response.json()
+        console.log('🚀 ~ file: Login.js ~ line 22 ~ postLogin ~ data', data)
         if (response.status === 200) {
             authenticate()
             history.push({
@@ -29,7 +27,6 @@ const Login = () => {
             })
         } else {
             const { message } = await response.json()
-            // console.log("🚀 ~ file: Login.js ~ line 23 ~ postLogin ~ message", message)
             alert(message)
         }
     }
@@ -70,12 +67,12 @@ const Login = () => {
                         Submit
                     </button>
                     {/* URI is incorrect! update to use proper endpoint! */}
-                    <a className="btn" href="http://localhost:8080/auth/login">
+                    <button className="btn">
                         <img
                             src="./static/ms-symbollockup_signin_dark_short.png"
                             alt=""
                         ></img>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
