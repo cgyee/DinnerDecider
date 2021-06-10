@@ -3,8 +3,10 @@ const Votes = require('../models/Votes')
 const pusher = require('../config/pusher')
 
 module.exports = {
+    /* Return the poll that matches the id in the request params */
     getPollbyId: (req, res) => {
         try {
+            /*  */
             const pollId = req.params.id
             console.log(
                 '🚀 ~ file: resturantInfo.js ~ line 14 ~ pollId',

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Inputfield from '../components/Inputfield'
 import { useAuth } from '../auth'
+import { SignInButton } from '../components/MsalSigninButton'
 import store from 'store-js'
 
 const Login = () => {
@@ -13,18 +14,22 @@ const Login = () => {
             credentials: 'include',
             headers: {
                 'Content-type': 'Application/json'
-            },
+            }
+        }
+        const response = await fetch('auth/local/login', {
+            ...options,
             body: JSON.stringify({
                 email: emailField,
                 password: passwordFieldMain
             })
-        }
-        const response = await fetch('/auth/local/login', options)
-        const data = await response.json()
-        console.log('🚀 ~ file: Login.js ~ line 22 ~ postLogin ~ data', data)
+        })
+        console.log(
+            '🚀 ~ file: Login.js ~ line 23 ~ postLogin ~ response',
+            response
+        )
         if (response.status === 200) {
             //If successful store the token in localStorage
-            store.set('token', data.token)
+            // store.set('token', data.token)
             authenticate()
             history.push({
                 pathname: '/Dashboard'
@@ -71,12 +76,13 @@ const Login = () => {
                         Submit
                     </button>
                     {/* URI is incorrect! update to use proper endpoint! */}
-                    <button className="btn">
+                    {/* <button className="btn">
                         <img
                             src="./static/ms-symbollockup_signin_dark_short.png"
                             alt=""
                         ></img>
-                    </button>
+                    </button> */}
+                    <SignInButton />
                 </div>
             </div>
         </div>

@@ -12,13 +12,10 @@ const Results = (props) => {
     //Add H1/heders displaying selected Categories
     useEffect(() => {
         ;(async () => {
-            const response = await fetch(
-                `http://localhost:5000/${URI_STRING}`,
-                {
-                    method: 'GET',
-                    mode: 'cors'
-                }
-            )
+            const response = await fetch(`/${URI_STRING}`, {
+                method: 'GET',
+                mode: 'cors'
+            })
             const resturantInfo = await response.json()
             setResturantInfo(resturantInfo)
             console.log(

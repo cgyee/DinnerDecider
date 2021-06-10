@@ -31,7 +31,6 @@ exports.postLogin = (req, res, next) => {
             return next(err)
         }
         if (!user) {
-            req.flash('errors', info)
             return res.status(400).send({ message: info })
         }
 
@@ -39,10 +38,11 @@ exports.postLogin = (req, res, next) => {
             if (err) {
                 return next(err)
             }
-            const body = { id: user.id, email: user.email }
-            const token = jwt.sign({ user: body }, 'TOP_SECRET')
+            // const body = { id: user.id, email: user.email }
+            // const token = jwt.sign({ user: body }, 'TOP_SECRET')
 
-            return res.json({ token })
+            // return res.json({ token })
+            return res.sendStatus(200)
         })
     })(req, res, next)
 }

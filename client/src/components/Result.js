@@ -2,11 +2,11 @@ import React from 'react'
 
 const Result = (props) => {
     let stars = new Array(5).fill(
-        <i style={{ color: 'gold' }} class="fas fa-star col"></i>
+        <i style={{ color: 'gold' }} className="fas fa-star col"></i>
     )
     for (let i = 0; i < 5 - Math.floor(props.rating); i++) {
         stars[Math.floor(props.rating) - i] = (
-            <i style={{ color: 'gold' }} class="far fa-star col"></i>
+            <i style={{ color: 'gold' }} className="far fa-star col"></i>
         )
     }
     if (props.rating % Math.floor(props.rating) >= 0.5) {

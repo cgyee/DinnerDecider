@@ -114,6 +114,10 @@ module.exports = {
         }
     },
     getResults: async (req, res) => {
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 128 ~ getResults: ~ req.user',
+            req.user
+        )
         const author = req.user.id
         console.log(
             '🚀 ~ file: pollController.js ~ line 148 ~ getResults: ~ author',
