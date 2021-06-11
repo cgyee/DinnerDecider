@@ -6,9 +6,6 @@ const voteRoutes = require('./voteRoutes')
 const resultsRoutes = require('./resultsRoutes')
 const pollRoutes = require('./pollRoutes')
 
-/* TODO refactor following logic */
-const detailsController = require('../controllers/resturantInfo')
-
 /* Route handlers for associated routes */
 router.use('/Vote', voteRoutes)
 router.use('/Results', resultsRoutes)

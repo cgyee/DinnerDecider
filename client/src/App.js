@@ -53,6 +53,11 @@ function App() {
                             path="/Results"
                             render={(routeProps) => <Results {...routeProps} />}
                         ></Route>
+                        <Route path="/MS">
+                            <div>
+                                <h1>it workds!</h1>
+                            </div>
+                        </Route>
                         {/* Update me when name is changed! */}
                         {/* <Route
                     path="/Callvotes"

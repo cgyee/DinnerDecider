@@ -3,6 +3,7 @@ const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const User = require('../../models/User')
 
+/* Check if the user is logged in or not, if req.user is set or not */
 exports.getLogin = (req, res) => {
     if (req.user) {
         console.log('🚀 ~ file: local.js ~ line 7 ~ user', req.user)
@@ -11,9 +12,11 @@ exports.getLogin = (req, res) => {
     res.sendStatus(401)
 }
 
+/* POST - log in information (data can be found in req.body) and validate if the information is valid  */
 exports.postLogin = (req, res, next) => {
     const validationErrors = []
     console.log(req.body)
+    /* Check that the email and password is valid if not send relevant error messages */
     if (!validator.isEmail(req.body.email))
         validationErrors.push('Please enter a valid email address.')
     if (validator.isEmpty(req.body.password))
@@ -26,6 +29,7 @@ exports.postLogin = (req, res, next) => {
         gmail_remove_dots: false
     })
 
+    /* Authenticate user using passport, if inforamtion is valid set req.user  */
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err)
@@ -47,6 +51,7 @@ exports.postLogin = (req, res, next) => {
     })(req, res, next)
 }
 
+/* GET - log out user, end session and set req.user to null */
 exports.logout = (req, res) => {
     req.logout()
     req.session.destroy((err) => {
@@ -60,16 +65,9 @@ exports.logout = (req, res) => {
     })
 }
 
-exports.getSignup = (req, res) => {
-    if (req.user) {
-        return res.redirect('/post')
-    }
-    res.render('signup', {
-        title: 'Create Account'
-    })
-}
-
+/* POST - Create new user using information in req.body */
 exports.postSignup = (req, res, next) => {
+    /* Check that the email and password is valid if not send relevant error messages */
     const validationErrors = []
     if (!validator.isEmail(req.body.email))
         validationErrors.push('Please enter a valid email address.')
@@ -85,13 +83,15 @@ exports.postSignup = (req, res, next) => {
         gmail_remove_dots: false
     })
 
+    /* Create new user object modeled after UserSchema */
     const user = new User({
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password
     })
-    console.log('🚀 ~ file: local.js ~ line 76 ~ user', user)
+    // console.log('🚀 ~ file: local.js ~ line 76 ~ user', user)
 
+    /* Check if a user with a matching email or username already exists if it doesn't create that new user and set req.user */
     User.findOne(
         {
             $or: [{ email: req.body.email }, { userName: req.body.userName }]
