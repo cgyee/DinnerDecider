@@ -1,5 +1,8 @@
+/* import Models */
 const Polls = require('../models/Polls')
 const Votes = require('../models/Votes')
+
+/* 3rd Party API that uses websockets to publish events for the client */
 const pusher = require('../config/pusher')
 
 module.exports = {
