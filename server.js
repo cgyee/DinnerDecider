@@ -6,6 +6,10 @@ const passport = require('passport')
 const connectDB = require('./config/database')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
+/* Used to create schema from our custom GraphQLObject */
+const { graphqlHTTP } = require('express-graphql')
+const { GraphQLSchema } = require('graphql')
+const { pollQueryType } = require('./graphqlschemas/Poll')
 const path = require('path')
 const PORT = 5000
 
@@ -51,6 +55,16 @@ app.use(express.static(path.resolve(__dirname, './client/public')))
 /* This is where our authentication routes and api routes are */
 app.use('/auth', authRoutes)
 app.use('/api/', apiRoutes)
+
+/* Creating a new schema based on the  type pollQueryType */
+const schema = new GraphQLSchema({ query: pollQueryType })
+app.use(
+    '/graphql',
+    graphqlHTTP({
+        schema: schema,
+        graphiql: true
+    })
+)
 
 //If a GET request is made to any route not specified just run the index file
 // Update me to use public when testing in dev
