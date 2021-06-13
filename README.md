@@ -14,7 +14,7 @@ After creating the accounts add a .env file to the root directory with the follo
     clientID=<AzureAD clientID>
     clientSecret=<AzureAD client secret>
     redirectUrl=<AzureAD redirect URL>
-    DB_STRING= <Your MongoDB URi String>
+    DB_STRING= <Your MongoDB URI String>
     YELP_ClientID=<Yelp client Id>
     YELP_API_KEY=<Yelp API key>
     PUSHER_appId=<Pusher app Id>
@@ -30,6 +30,12 @@ Use the package manager npm to install dependencies.
 ```bash
 npm install && cd client npm install
 ```
+
+## Usage
+If you would like to run the project **locally** open a terminal in the root directory of the project and enter
+```bash
+npm run dev
+``` 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -56,6 +56,7 @@ function App() {
                         <Route path="/MS">
                             <div>
                                 <h1>it workds!</h1>
+                                {console.log('MS PATH')}
                             </div>
                         </Route>
                         {/* Update me when name is changed! */}
