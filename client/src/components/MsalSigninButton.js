@@ -17,7 +17,7 @@ export const SignInButton = () => {
     return (
         <button
             variant="secondary"
-            className="ml-auto"
+            className="ml-auto btn btn-primary"
             onClick={() => handleLogin(instance)}
         >
             Sign in using Redirect

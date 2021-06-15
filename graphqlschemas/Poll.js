@@ -5,6 +5,7 @@ const {
     GraphQLID,
     GraphQLList
 } = require('graphql')
+const GraphQLDate = require('graphql-date')
 const Polls = require('../models/Polls')
 
 /* Definition of type that mirrors Poll model */
@@ -27,6 +28,9 @@ const pollType = new GraphQLObjectType({
         },
         winResult: {
             type: winResultType
+        },
+        created: {
+            type: GraphQLDate
         }
     })
 })
