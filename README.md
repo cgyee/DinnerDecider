@@ -1,6 +1,6 @@
 # DinnerDecider(Name TBD)
 
-DinnerDecider is a Web Application to help you and your loved ones determine what you're going to eat from the power democracy.
+DinnerDecider is a Web Application to help you and your loved ones determine what you're going to eat using the power democracy. You can vote on create a poll and vote on categories you're interested in, and all the votes will be summed with a resturant picked from the winning category!
 
 ## Prerequisites
 * Node installed
