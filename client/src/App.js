@@ -8,6 +8,7 @@ import VotePage from './pages/VotePage'
 import Results from './pages/Results'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/Dashboard'
+import ServiceSignin from './pages/ServiceSignin'
 import { AuthProvider } from './auth'
 /* Change my name! */
 // import PollCountPage from './pages/PollCountPage'
@@ -53,12 +54,6 @@ function App() {
                             path="/Results"
                             render={(routeProps) => <Results {...routeProps} />}
                         ></Route>
-                        <Route path="/MS">
-                            <div>
-                                <h1>it workds!</h1>
-                                {console.log('MS PATH')}
-                            </div>
-                        </Route>
                         {/* Update me when name is changed! */}
                         {/* <Route
                     path="/Callvotes"
@@ -66,6 +61,9 @@ function App() {
                         <PollCountPage {...routeProps} />
                     )}
                 ></Route> */}
+                        <Route path="/MS">
+                            <ServiceSignin />
+                        </Route>
                     </Switch>
                 </Router>
             </div>

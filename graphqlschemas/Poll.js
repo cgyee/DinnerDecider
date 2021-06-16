@@ -62,12 +62,15 @@ const pollQueryType = new GraphQLObjectType({
                 return polls
             }
         },
-        getWinningResults: {
+        getAllWinningResults: {
             type: new GraphQLList(winResultType),
             resolve: async () => {
                 const isComplete = true
                 const polls = await Polls.find({ isComplete }, '-_id winResult')
-                return polls
+                const pollWinners = polls.map((poll) => {
+                    return { ...poll['winResult'] }
+                })
+                return pollWinners
             }
         },
         getMyPolls: {

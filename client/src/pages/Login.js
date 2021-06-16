@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import Inputfield from '../components/Inputfield'
 import { useAuth } from '../auth'
 import { SignInButton } from '../components/MsalSigninButton'
-import store from 'store-js'
 
 const Login = () => {
     const { authenticate } = useAuth()

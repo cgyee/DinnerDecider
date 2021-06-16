@@ -3,7 +3,6 @@ import Result from '../components/Result'
 import PollBlock from '../components/Pollblock'
 import { useHistory } from 'react-router-dom'
 import isValidZipCode from 'is-valid-zipcode'
-import { baseUrl } from '../urlpath'
 
 const Dashboard = () => {
     const history = useHistory()

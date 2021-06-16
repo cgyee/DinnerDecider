@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useAuth } from '../auth'
-import { baseUrl } from '../urlpath'
 
 const Navbar = () => {
     const { isAuthenticated, unAuthenticate } = useAuth()

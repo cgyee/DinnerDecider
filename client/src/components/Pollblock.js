@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { baseUrl } from '../urlpath'
 
 const PollBlock = (props) => {
     //TODO update me to use variable for paths!
