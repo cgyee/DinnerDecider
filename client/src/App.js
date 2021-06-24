@@ -61,7 +61,7 @@ function App() {
                         <PollCountPage {...routeProps} />
                     )}
                 ></Route> */}
-                        <Route path="/MS">
+                        <Route path="/auth/azure/login">
                             <ServiceSignin />
                         </Route>
                     </Switch>

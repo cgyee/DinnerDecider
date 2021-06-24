@@ -6,7 +6,6 @@ const User = require('../../models/User')
 /* Check if the user is logged in or not, if req.user is set or not */
 exports.getLogin = (req, res) => {
     if (req.user) {
-        console.log('🚀 ~ file: local.js ~ line 7 ~ user', req.user)
         return res.status(200).send({ id: req.user.id })
     }
     res.sendStatus(401)

@@ -3,41 +3,30 @@ import { useHistory } from 'react-router-dom'
 import Inputfield from '../components/Inputfield'
 import { useAuth } from '../auth'
 import { SignInButton } from '../components/MsalSigninButton'
+import { useIsAuthenticated } from '@azure/msal-react'
+import { useMsal } from '@azure/msal-react'
+import { InteractionStatus } from '@azure/msal-browser'
 
 const Login = () => {
-    const { authenticate } = useAuth()
-    const postLogin = async () => {
-        const options = {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            headers: {
-                'Content-type': 'Application/json'
-            }
+    const { instance, accounts, inProgress } = useMsal()
+    const isAuthenticated = useIsAuthenticated()
+
+    useEffect(() => {
+        if (isAuthenticated && inProgress === InteractionStatus.None) {
+            instance
+                .acquireTokenSilent({
+                    account: accounts[0],
+                    scopes: ['User.Read']
+                })
+                .then((response) => {
+                    console.log(
+                        '🚀 ~ file: Login.js ~ line 22 ~ .then ~ response',
+                        response
+                    )
+                })
         }
-        const response = await fetch('auth/local/login', {
-            ...options,
-            body: JSON.stringify({
-                email: emailField,
-                password: passwordFieldMain
-            })
-        })
-        console.log(
-            '🚀 ~ file: Login.js ~ line 23 ~ postLogin ~ response',
-            response
-        )
-        if (response.status === 200) {
-            //If successful store the token in localStorage
-            // store.set('token', data.token)
-            authenticate()
-            history.push({
-                pathname: '/Dashboard'
-            })
-        } else {
-            const { message } = await response.json()
-            alert(message)
-        }
-    }
+    }, [inProgress, isAuthenticated, accounts, instance])
+
     const [emailField, setEmailField] = useState('')
     const [passwordFieldMain, setPasswordFieldMain] = useState('')
     const [buttonIsDisabld, setButtonIsDisabled] = useState(true)
@@ -70,7 +59,7 @@ const Login = () => {
                     <button
                         className="btn btn-primary"
                         disabled={buttonIsDisabld}
-                        onClick={postLogin}
+                        // onClick={postLogin}
                     >
                         Submit
                     </button>

@@ -1,39 +1,51 @@
 import React, { useState } from 'react'
 import { useMsal } from '@azure/msal-react'
+import { loginRequest } from '../config/msalAuthConfig'
+import Button from 'react-bootstrap/Button'
 
 const ServiceSignin = () => {
-    const { accounts } = useMsal()
-    if (accounts[0]) {
-        const { username, name, idTokenClaims } = accounts[0]
-        console.log(
-            '🚀 ~ file: ServiceSignin.js ~ line 8 ~ ServiceSignin ~ accounts[0]',
-            accounts[0]
-        )
-        const { oid, iat, exp } = idTokenClaims
+    const { instance, accounts, inProgress } = useMsal()
+    const [accessToken, setAccessToken] = useState(null)
 
-        try {
-            fetch('/auth/azure/login', {
-                mode: 'cors',
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-type': 'Application/json'
-                },
-                body: JSON.stringify({ username, name, oid, iat, exp })
-            }).then((response) => {
-                console.log(
-                    '🚀 ~ file: ServiceSignin.js ~ line 19 ~ response',
-                    response
-                )
-            })
-        } catch (error) {
-            console.log(
-                '🚀 ~ file: ServiceSignin.js ~ line 30 ~ ServiceSignin ~ error',
-                error
-            )
+    const name = accounts[0] && accounts[0].name
+
+    function RequestAccessToken() {
+        const request = {
+            ...loginRequest,
+            account: accounts[0]
         }
+
+        // Silently acquires an access token which is then attached to a request for Microsoft Graph data
+        instance
+            .acquireTokenSilent(request)
+            .then((response) => {
+                console.log(
+                    '🚀 ~ file: ServiceSignin.js ~ line 26 ~ .then ~ response.accessToken',
+                    response.accessToken
+                )
+                setAccessToken(response.accessToken)
+                localStorage.setItem('token', response.accessToken)
+            })
+            .catch((e) => {
+                instance.acquireTokenPopup(request).then((response) => {
+                    setAccessToken(response.accessToken)
+                    localStorage.setItem('error', e)
+                })
+            })
     }
-    return <h1>Stuff</h1>
+
+    return (
+        <>
+            <h5 className="card-title">Welcome {name}</h5>
+            {accessToken ? (
+                <p>Access Token Acquired!</p>
+            ) : (
+                <Button variant="secondary" onClick={RequestAccessToken}>
+                    Request Access Token
+                </Button>
+            )}
+        </>
+    )
 }
 
 export default ServiceSignin
