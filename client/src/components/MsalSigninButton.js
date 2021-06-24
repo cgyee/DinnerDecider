@@ -3,7 +3,7 @@ import { useMsal } from '@azure/msal-react'
 import { loginRequest } from '../config/msalAuthConfig'
 
 function handleLogin(instance) {
-    instance.loginRedirect(loginRequest).catch((e) => {
+    instance.loginPopup(loginRequest).catch((e) => {
         console.error(e)
     })
 }
