@@ -61,9 +61,6 @@ function App() {
                         <PollCountPage {...routeProps} />
                     )}
                 ></Route> */}
-                        <Route path="/auth/azure/login">
-                            <ServiceSignin />
-                        </Route>
                     </Switch>
                 </Router>
             </div>

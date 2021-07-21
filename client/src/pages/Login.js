@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Inputfield from '../components/Inputfield'
-import { useAuth } from '../auth'
 import { SignInButton } from '../components/MsalSigninButton'
 import { useIsAuthenticated } from '@azure/msal-react'
 import { useMsal } from '@azure/msal-react'
 import { InteractionStatus } from '@azure/msal-browser'
+import { loginRequest } from '../config/msalAuthConfig'
 
 const Login = () => {
     const { instance, accounts, inProgress } = useMsal()
+    const [accessToken, setAccessToken] = useState(null)
     const isAuthenticated = useIsAuthenticated()
     const [emailField, setEmailField] = useState('')
     const [passwordFieldMain, setPasswordFieldMain] = useState('')
@@ -40,17 +41,34 @@ const Login = () => {
     }
 
     useEffect(() => {
+        const request = {
+            ...loginRequest,
+            account: accounts[0]
+        }
+
         if (isAuthenticated && inProgress === InteractionStatus.None) {
             instance
-                .acquireTokenSilent({
-                    account: accounts[0],
-                    scopes: ['User.Read']
-                })
+                .acquireTokenSilent(request)
                 .then((response) => {
-                    console.log(
-                        '🚀 ~ file: Login.js ~ line 22 ~ .then ~ response',
-                        response
-                    )
+                    setAccessToken(response.accessToken)
+                    sessionStorage.setItem('token', response.accessToken)
+
+                    /* Send token to backend to call ms graph for user information */
+                    fetch('/auth/azure/login', {
+                        method: 'POST',
+                        mode: 'cors',
+                        credentials: 'include',
+                        headers: { 'Content-type': 'Application/json' },
+                        body: JSON.stringify({
+                            accessToken: response.accessToken
+                        })
+                    })
+                })
+                .catch((e) => {
+                    instance.acquireTokenPopup(request).then((response) => {
+                        setAccessToken(response.accessToken)
+                        sessionStorage.setItem('error', e)
+                    })
                 })
         }
     }, [inProgress, isAuthenticated, accounts, instance])

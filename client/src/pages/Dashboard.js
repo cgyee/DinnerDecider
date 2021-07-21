@@ -11,10 +11,6 @@ const Dashboard = () => {
     const [pollName, setPollName] = useState('')
     const [onGoingPolls, setOngoingPolls] = useState([])
 
-    console.log(
-        '🚀 ~ file: Dashboard.js ~ line 13 ~ Dashboard ~ onGoingPolls',
-        onGoingPolls
-    )
     const options = {
         method: 'POST',
         mode: 'cors',

@@ -4,7 +4,15 @@ const config = require('../../config/config')
 const router = express.Router()
 
 router.post('/login', (req, res) => {
-    console.log('🚀 ~ file: azure.js ~ line 7 ~ router.post ~ req', req.body)
+    const { accessToken } = req.body
+    console.log(
+        '🚀 ~ file: azure.js ~ line 8 ~ router.post ~ req.body',
+        req.body
+    )
+    console.log(
+        '🚀 ~ file: azure.js ~ line 8 ~ router.post ~ accessToken',
+        accessToken
+    )
     res.sendStatus(200)
 })
 

@@ -19,10 +19,6 @@ const ServiceSignin = () => {
         instance
             .acquireTokenSilent(request)
             .then((response) => {
-                console.log(
-                    '🚀 ~ file: ServiceSignin.js ~ line 26 ~ .then ~ response.accessToken',
-                    response.accessToken
-                )
                 setAccessToken(response.accessToken)
                 localStorage.setItem('token', response.accessToken)
             })
