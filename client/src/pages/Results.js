@@ -18,10 +18,6 @@ const Results = (props) => {
             })
             const resturantInfo = await response.json()
             setResturantInfo(resturantInfo)
-            console.log(
-                '🚀 ~ file: Results.js ~ line 20 ~ resturantInfo',
-                resturantInfo
-            )
         })()
     }, [setResturantInfo])
     return (

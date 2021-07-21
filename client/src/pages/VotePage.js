@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AsyncSelect from 'react-select/async'
 import { useHistory } from 'react-router-dom'
+import { useAuth } from '../auth'
 import store from 'store-js'
 
 const defaultOptions = [
@@ -192,6 +193,7 @@ const VotePage = (props) => {
     const [pollId, setPollId] = useState('')
     const hist = useHistory()
     const history = props.history || hist
+    const { isAuthenticated } = useAuth()
 
     useEffect(() => {
         currentSelectedOptions.length === 3 &&
@@ -224,13 +226,19 @@ const VotePage = (props) => {
                 body: JSON.stringify({ categories, token })
             })
             const data = await response.json()
-            history.push({
-                pathname: `/Results/${pollId}`,
-                state: {
-                    pollId,
-                    data
-                }
-            })
+            if (isAuthenticated()) {
+                history.push({
+                    pathname: `/Results/${pollId}`,
+                    state: {
+                        pollId,
+                        data
+                    }
+                })
+            } else {
+                history.push({
+                    pathname: '/'
+                })
+            }
         } catch (error) {
             console.log(
                 '🚀 ~ file: VotePage.js ~ line 233 ~ onClick ~ error',

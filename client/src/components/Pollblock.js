@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
@@ -8,6 +9,8 @@ const PollBlock = (props) => {
     const history = useHistory()
     const [text, setText] = useState(url)
     const [isCopied, setIsCopied] = useState(false)
+
+    useEffect(() => {}, [])
 
     const onCopyText = () => {
         setIsCopied(true)
@@ -20,7 +23,7 @@ const PollBlock = (props) => {
     const goToPollResults = (id) =>
         history.push({ pathname: `/Results/${id}`, state: { id } })
     return (
-        <div className="row w-75 mx-auto border p-3 mb-3">
+        <Row className="w-75 mx-auto border p-3 mb-3">
             <span
                 className="text-center align-middle col-4"
                 style={{
@@ -30,7 +33,7 @@ const PollBlock = (props) => {
             >
                 {props.name}
             </span>
-            <div className="btn-group col">
+            <ButtonGroup className="col">
                 <CopyToClipboard text={text} onCopy={onCopyText}>
                     <button
                         className="btn btn-outline-primary"
@@ -58,8 +61,9 @@ const PollBlock = (props) => {
                 >
                     <i className="fas fa-trash"></i>
                 </button>
-            </div>
-        </div>
+                <Button variant="outline-primary">END</Button>
+            </ButtonGroup>
+        </Row>
     )
 }
 

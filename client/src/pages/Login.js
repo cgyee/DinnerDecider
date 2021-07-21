@@ -10,6 +10,34 @@ import { InteractionStatus } from '@azure/msal-browser'
 const Login = () => {
     const { instance, accounts, inProgress } = useMsal()
     const isAuthenticated = useIsAuthenticated()
+    const [emailField, setEmailField] = useState('')
+    const [passwordFieldMain, setPasswordFieldMain] = useState('')
+    const [buttonIsDisabld, setButtonIsDisabled] = useState(true)
+    const history = useHistory()
+    const { authenticate } = useAuth()
+
+    const postLogin = async () => {
+        const response = await fetch('/auth/local/login', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-type': 'Application/json'
+            },
+            body: JSON.stringify({
+                email: emailField,
+                password: passwordFieldMain
+            })
+        })
+        if (response.status == 200) {
+            authenticate()
+            history.push({
+                pathname: '/Dashboard'
+            })
+        } else {
+            const { message } = await response.json()
+            alert(message)
+        }
+    }
 
     useEffect(() => {
         if (isAuthenticated && inProgress === InteractionStatus.None) {
@@ -27,10 +55,6 @@ const Login = () => {
         }
     }, [inProgress, isAuthenticated, accounts, instance])
 
-    const [emailField, setEmailField] = useState('')
-    const [passwordFieldMain, setPasswordFieldMain] = useState('')
-    const [buttonIsDisabld, setButtonIsDisabled] = useState(true)
-    const history = useHistory()
     useEffect(() => {
         setButtonIsDisabled(!(emailField && passwordFieldMain))
     }, [emailField, passwordFieldMain])
@@ -59,7 +83,7 @@ const Login = () => {
                     <button
                         className="btn btn-primary"
                         disabled={buttonIsDisabld}
-                        // onClick={postLogin}
+                        onClick={postLogin}
                     >
                         Submit
                     </button>

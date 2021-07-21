@@ -11,7 +11,10 @@ const Result = (props) => {
     }
     if (props.rating % Math.floor(props.rating) >= 0.5) {
         stars[Math.floor(props.rating)] = (
-            <i style={{ color: 'gold' }} class="fas fa-star-half-alt col"></i>
+            <i
+                style={{ color: 'gold' }}
+                className="fas fa-star-half-alt col"
+            ></i>
         )
     }
     return (

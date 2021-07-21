@@ -34,11 +34,6 @@ const Dashboard = () => {
         const data = await response.json()
         const { id } = data
         setOngoingPolls([...onGoingPolls, { address: zip, name, _id: id }])
-
-        console.log(
-            '🚀 ~ file: Dashboard.js ~ line 45 ~ createNewPoll ~ data',
-            data
-        )
     }
     const deletePoll = async (state, setState, id) => {
         try {
