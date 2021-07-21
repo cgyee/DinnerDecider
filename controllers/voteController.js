@@ -11,11 +11,22 @@ module.exports = {
         try {
             /*  */
             const pollId = req.params.id
-            console.log(
-                '🚀 ~ file: resturantInfo.js ~ line 14 ~ pollId',
-                pollId
-            )
             res.json({ id: pollId })
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    getPollCount: async (req, res) => {
+        try {
+            const pollId = req.params.id
+            const votes = Votes.find({ pollId })
+            const count = votes.length || 0
+            console.log(
+                '🚀 ~ file: voteController.js ~ line 25 ~ getPollCount: ~ count',
+                count
+            )
+            res.send({ count })
         } catch (error) {
             console.log(error)
         }
@@ -40,7 +51,7 @@ module.exports = {
             /* Result of Vote is used to update Poll with the matching Poll._id with the value Vote._id  */
             const poll = await Polls.findByIdAndUpdate(
                 { _id: pollId },
-                { $push: { voters: vote._id }, $set: { isComplete: true } }
+                { $push: { voters: vote._id } }
             )
 
             /* 

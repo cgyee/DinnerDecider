@@ -153,10 +153,6 @@ module.exports = {
             let { winResult } = poll
 
             if (winResult) {
-                console.log(
-                    '🚀 ~ file: pollController.js ~ line 155 ~ getResult: ~ poll.winResult',
-                    poll
-                )
                 res.json({ ...poll.winResult })
                 return
             }
@@ -188,7 +184,9 @@ module.exports = {
 
         /* Could be reafactored to user isComplete filter in above find */
         /* Use filter array method and poll.isCompleted as check  */
-        const completedPolls = polls.filter((poll) => poll.isComplete)
+        const completedPolls = polls.filter(
+            (poll) => poll.isComplete && poll.winResult
+        )
         /* Return a new array with only information related to winResult */
         const winningResults = completedPolls.map((poll) => poll.winResult)
         /* Return json response of Polls winResults */

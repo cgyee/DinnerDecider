@@ -206,6 +206,7 @@ const VotePage = (props) => {
         } else {
             ;(async () => {
                 const URI = history.location.pathname
+                console.log('🚀 ~ file: VotePage.js ~ line 209 ~ ; ~ URI', URI)
                 const response = await fetch(`/api${URI}`)
                 const data = await response.json()
                 setPollId(data.id)
@@ -227,12 +228,15 @@ const VotePage = (props) => {
             })
             const data = await response.json()
             if (isAuthenticated()) {
+                // history.push({
+                //     pathname: `/Results/${pollId}`,
+                //     state: {
+                //         pollId,
+                //         data
+                //     }
+                // })
                 history.push({
-                    pathname: `/Results/${pollId}`,
-                    state: {
-                        pollId,
-                        data
-                    }
+                    pathname: '/Dashboard'
                 })
             } else {
                 history.push({

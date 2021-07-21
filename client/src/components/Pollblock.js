@@ -9,8 +9,31 @@ const PollBlock = (props) => {
     const history = useHistory()
     const [text, setText] = useState(url)
     const [isCopied, setIsCopied] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(true)
+    const [count, setCount] = useState(0)
 
-    useEffect(() => {}, [])
+    // useEffect(() => {
+    //     ;(async () => {
+    //         const response = await fetch(`/api/Poll/:id/count`, {
+    //             method: 'GET',
+    //             mode: 'cors'
+    //         })
+    //         const data = await response.json()
+    //         console.log('🚀 ~ file: PollCountPage.js ~ line 17 ~ data', data)
+    //         setCount(data.count)
+    //     })()
+    // }, [])
+
+    // useEffect(() => {
+    //     const channel = pusher.subscribe('DinnerDeciderDemo')
+    //     channel.bind('addVote', (vote) => {
+    //         console.log(
+    //             '🚀 ~ file: PollCountPage.js ~ line 12 ~ channel.bind ~ vote',
+    //             vote
+    //         )
+    //         setCount(vote.count)
+    //     })
+    // }, [setCount])
 
     const onCopyText = () => {
         setIsCopied(true)
@@ -22,6 +45,7 @@ const PollBlock = (props) => {
         history.push({ pathname: `/Vote/${id}`, state: { id } })
     const goToPollResults = (id) =>
         history.push({ pathname: `/Results/${id}`, state: { id } })
+
     return (
         <Row className="w-75 mx-auto border p-3 mb-3">
             <span
@@ -35,33 +59,23 @@ const PollBlock = (props) => {
             </span>
             <ButtonGroup className="col">
                 <CopyToClipboard text={text} onCopy={onCopyText}>
-                    <button
-                        className="btn btn-outline-primary"
-                        data-id={props._id}
-                    >
+                    <Button variant="outline-primary" data-id={props._id}>
                         <i className="far fa-clipboard"></i>
-                    </button>
+                    </Button>
                 </CopyToClipboard>
-                <button
+                <Button
+                    variant="outline-primary"
                     onClick={(e) => goToPollVote(props._id)}
-                    className="btn btn-outline-primary"
                 >
-                    Vote
-                </button>
-                {/* <button
-                    disabled={!props.isComplete}
-                    onClick={(e) => goToPollResults(props._id)}
-                    className="btn btn-outline-danger"
-                >
-                    End
-                </button> */}
-                <button
-                    className="btn btn-outline-danger"
-                    onClick={props.onClick}
-                >
+                    <i className="fas fa-arrow-circle-right"></i>
+                </Button>
+                <Button variant="outline-danger" onClick={props.onClick}>
                     <i className="fas fa-trash"></i>
-                </button>
-                <Button variant="outline-primary">END</Button>
+                </Button>
+                <Button variant="outline-primary" disabled={isDisabled}>
+                    <i className="fas fa-vote-yea"></i>
+                    <span className="px-2">{count}</span>
+                </Button>
             </ButtonGroup>
         </Row>
     )
