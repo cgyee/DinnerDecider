@@ -168,6 +168,15 @@ module.exports = {
                 pollId
             )
 
+            const p = await Polls.updateOne(
+                { _id: pollId },
+                { $set: { isComplete: true, winResult } }
+            )
+            console.log(
+                '🚀 ~ file: pollController.js ~ line 175 ~ getResult: ~ p',
+                p
+            )
+
             /* Return a json response of destructered winResult */
             res.json({ ...winResult })
         } catch (error) {

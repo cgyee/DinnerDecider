@@ -112,6 +112,12 @@ const Dashboard = () => {
                         onClick={() =>
                             deletePoll(onGoingPolls, setOngoingPolls, poll._id)
                         }
+                        remove={() =>
+                            setOngoingPolls((prevState) =>
+                                prevState.filter((p) => p._id != poll._id)
+                            )
+                        }
+                        updateParentState={setResturantInfo}
                     />
                 ))}
 

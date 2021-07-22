@@ -20,13 +20,16 @@ module.exports = {
     getPollCount: async (req, res) => {
         try {
             const pollId = req.params.id
-            const votes = Votes.find({ pollId })
+            const votes = await Votes.find({ pollId })
             const count = votes.length || 0
-            console.log(
-                '🚀 ~ file: voteController.js ~ line 25 ~ getPollCount: ~ count',
-                count
-            )
-            res.send({ count })
+            const categoryCount = {}
+            votes.flat().forEach((vote) => {
+                if (!(vote in category)) {
+                    categoryCount[vote] = 0
+                }
+                categoryCount[vote] += 1
+            })
+            res.send({ count, categoryCount })
         } catch (error) {
             console.log(error)
         }

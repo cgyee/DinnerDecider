@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Result from '../components/Result'
 
 const Results = (props) => {
-    const URI_STRING = `api/Poll/Results/${props.history.location.state.pollId}`
-    console.log(
-        '🚀 ~ file: Results.js ~ line 24 ~ Results ~ props.history.location.state',
-        props.history.location.state
-    )
+    const URI_STRING = `api/Poll/Results/${props.history.location.state.id}`
     const [resturantInfo, setResturantInfo] = useState()
 
     //Add H1/heders displaying selected Categories
