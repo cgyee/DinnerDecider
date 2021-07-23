@@ -48,9 +48,14 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Update me to use public when tesing dev
-app.use(express.static(path.resolve(__dirname, './client/public')))
-// app.use(express.static(path.resolve(__dirname, './client/build')))
+process.env.PRODUCTION
+    ? app.use(express.static(path.resolve(__dirname, './client/build')))
+    : app.use(express.static(path.resolve(__dirname, './client/public')))
+
+if (process.env.production) {
+} else {
+    //Update me to use public when tesing dev
+}
 
 /* This is where our authentication routes and api routes are */
 app.use('/auth', authRoutes)
@@ -70,8 +75,9 @@ app.use(
 // Update me to use public when testing in dev
 app.get('*', (request, response) => {
     response.sendFile(
-        path.resolve(__dirname, './client/public', 'index.html')
-        // path.resolve(__dirname, './client/build', 'index.html')
+        process.env.PRODUCTION
+            ? path.resolve(__dirname, './client/build', 'index.html')
+            : path.resolve(__dirname, './client/public', 'index.html')
     )
 })
 
