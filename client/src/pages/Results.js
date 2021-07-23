@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Result from '../components/Result'
 import { Container, Button, Row } from 'react-bootstrap'
+import { useAuth } from '../auth'
 
 const Results = (props) => {
-    const URI_STRING = `api/Poll/Results/${props.history.location.state.id}`
     const history = useHistory()
+    const URI_STRING = `api/Poll/${history.location.pathname}`
     const [resturantInfo, setResturantInfo] = useState()
+    const { isAuthenticated } = useAuth()
 
     const returnToDashboard = () => {
         history.push({ pathname: '/Dashboard' })
@@ -27,9 +29,11 @@ const Results = (props) => {
         <Container>
             <Row>
                 {resturantInfo && <Result {...resturantInfo} />}
-                <Button variant="success" onClick={returnToDashboard}>
-                    Go Back <i className="far fa-arrow-alt-circle-left"></i>
-                </Button>
+                {isAuthenticated() && (
+                    <Button variant="success" onClick={returnToDashboard}>
+                        Go Back <i className="far fa-arrow-alt-circle-left"></i>
+                    </Button>
+                )}
             </Row>
         </Container>
     )
