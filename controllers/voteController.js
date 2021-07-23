@@ -24,7 +24,7 @@ module.exports = {
             const count = votes.length || 0
             const categoryCount = {}
             votes.flat().forEach((vote) => {
-                if (!(vote in category)) {
+                if (!(vote in categoryCount)) {
                     categoryCount[vote] = 0
                 }
                 categoryCount[vote] += 1
