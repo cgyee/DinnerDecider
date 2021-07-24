@@ -15,8 +15,6 @@ import { AuthProvider } from './auth'
 
 // const context = React.createContext(isAuthenticated())
 function App() {
-    console.log(process.env.NODE_ENV)
-    console.log(process.env.REACT_APP_NOT_SECRET_CODE)
     return (
         <AuthProvider>
             <div className="App">

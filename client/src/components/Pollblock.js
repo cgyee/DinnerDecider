@@ -6,7 +6,8 @@ import pusher from '../config/pusher'
 
 const PollBlock = (props) => {
     //TODO update me to use variable for paths!
-    const url = `http://localhost:3000/Vote/${props._id}`
+    const host = window.location.host
+    const url = `${host}/Vote/${props._id}`
     const history = useHistory()
     const [text, setText] = useState(url)
     const [isCopied, setIsCopied] = useState(false)
