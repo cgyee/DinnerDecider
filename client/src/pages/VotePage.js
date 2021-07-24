@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import AsyncSelect from 'react-select/async'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../auth'
-import store from 'store-js'
 
 const defaultOptions = [
     { label: 'American', value: 'tradamerican' },
@@ -216,14 +215,11 @@ const VotePage = (props) => {
     const onClick = async () => {
         try {
             const URI = history.location.pathname
-            console.log('🚀 ~ file: VotePage.js ~ line 218 ~ URI', URI)
-            const token = store.get('token')
             const categories = { ...selectedOptions }
             const response = await fetch(`/api${URI}`, {
                 method: 'PUT',
                 mode: 'cors',
-                headers: { 'Content-type': 'Application/json' },
-                body: JSON.stringify({ categories, token })
+                headers: { 'Content-type': 'Application/json' }
             })
             const data = await response.json()
             if (isAuthenticated()) {

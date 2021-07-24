@@ -5,6 +5,7 @@ import React, { createContext, useContext, useState, useMemo } from 'react'
 const context = createContext(false)
 const { Provider } = context
 const isLoggedIn = store.get('user')
+console.log('🚀 ~ file: auth.js ~ line 8 ~ isLoggedIn', isLoggedIn)
 
 /* Component to wrap children using with the user state */
 function AuthProvider({ children }) {
