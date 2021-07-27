@@ -228,7 +228,7 @@ const VotePage = (props) => {
                 })
             } else {
                 history.push({
-                    pathname: '/'
+                    pathname: `/Results/${pollId}`
                 })
             }
         } catch (error) {

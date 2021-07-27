@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import AddressPage from './pages/AddressPage'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import VotePage from './pages/VotePage'
@@ -40,9 +39,6 @@ function App() {
                         </Route>
                         <Route exact path="/Signup">
                             <Signup />
-                        </Route>
-                        <Route exact path="/Address">
-                            <AddressPage />
                         </Route>
                         <Route
                             path="/Vote"

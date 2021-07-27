@@ -62,7 +62,7 @@ module.exports = {
                 We add one beacuse poll's information is from the update and thefore the count is behind by one 
             */
             const count = poll.voters.length + 1
-            pusher.pushVote(count)
+            pusher.pushVote(pollId, count)
             /* Send a 200(OK) response and the categories */
             res.status(200).send(categories)
         } catch (error) {

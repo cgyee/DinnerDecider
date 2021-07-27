@@ -22,14 +22,13 @@ const PollBlock = (props) => {
                 mode: 'cors'
             })
             const data = await response.json()
-            console.log('🚀 ~ file: PollCountPage.js ~ line 17 ~ data', data)
             setCount(data.count)
         })()
     }, [])
 
     useEffect(() => {
         const channel = pusher.subscribe('DinnerDeciderDemo')
-        channel.bind('addVote', (vote) => {
+        channel.bind(`addVote-${props._id}`, (vote) => {
             setCount(vote.count)
         })
     }, [setCount])
