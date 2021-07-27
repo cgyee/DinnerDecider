@@ -19,6 +19,25 @@ const Dashboard = () => {
     }
 
     const onChange = (e, cb) => cb(e.target.value)
+    const getResturants = async () => {
+        const response = await fetch(`/api/Poll/Results`, {
+            ...options,
+            method: 'GET'
+        })
+        const { polls } = await response.json()
+        const resturantInfo = polls
+        return resturantInfo
+    }
+
+    const getPolls = async () => {
+        const response = await fetch(`/api/Poll/getPolls`, {
+            ...options,
+            method: 'GET'
+        })
+        const data = await response.json()
+        const { polls } = data
+        return polls
+    }
 
     const createNewPoll = async () => {
         const zip = zipCode
@@ -37,7 +56,7 @@ const Dashboard = () => {
                 ...options,
                 method: 'DELETE'
             })
-            if (response.status == 200) {
+            if (response.ok) {
                 setState(state.filter((poll) => poll._id != id))
             }
             const data = await response.json()
@@ -50,30 +69,12 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        ;(async () => {
-            const response = await fetch(`/api/Poll/Results`, {
-                ...options,
-                method: 'GET'
-            })
-            const { polls } = await response.json()
-            const resturantInfo = polls
-            console.log(
-                '🚀 ~ file: Dashboard.js ~ line 61 ~ ; ~ resturantInfo',
-                resturantInfo
-            )
-            setResturantInfo(resturantInfo)
-        })()
-        ;(async () => {
-            const response = await fetch(`/api/Poll/getPolls`, {
-                ...options,
-                method: 'GET'
-            })
-            const data = await response.json()
-            const { polls } = data
-
-            console.log('🚀 ~ file: Dashboard.js ~ line 63 ~ data', data.polls)
-            polls && setOngoingPolls([...polls.filter((p) => !p.isComplete)])
-        })()
+        getResturants().then((resturants) => setResturantInfo(resturants))
+        getPolls().then(
+            (polls) =>
+                polls &&
+                setOngoingPolls([...polls.filter((p) => !p.isComplete)])
+        )
     }, [setResturantInfo, setOngoingPolls])
 
     return (

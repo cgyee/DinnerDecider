@@ -3,10 +3,6 @@ import { Row, ListGroup } from 'react-bootstrap'
 
 const VoteCategoryTable = (props) => {
     const { id } = props
-    console.log(
-        '🚀 ~ file: VoteCategoryTable.js ~ line 6 ~ VoteCategoryTable ~ id',
-        id
-    )
     const [categoryNames, setCategoryNames] = useState([])
     const [categoryCounts, setCategoryCounts] = useState([])
 
