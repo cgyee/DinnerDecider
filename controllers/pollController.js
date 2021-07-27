@@ -35,7 +35,7 @@ const aggregateResults = (votes) => {
             max = voteCounts[vote]
         }
     })
-    return category
+    return { category, categoryCounts: voteCounts }
 }
 
 const fetchYelpBusiness = async (address, category, pollName, pollId) => {
@@ -97,10 +97,7 @@ const fetchYelpBusiness = async (address, category, pollName, pollId) => {
     }
 
     /* Find a Poll with the associated id and update/set the value of winResult  */
-    const result = await Polls.findOneAndUpdate(
-        { _id: pollId },
-        { $set: { winResult } }
-    )
+    await Polls.findOneAndUpdate({ _id: pollId }, { $set: { winResult } })
 
     return winResult
 }
@@ -160,7 +157,7 @@ module.exports = {
             /* address is used as a filter for Yelp API request later */
             const address = poll.address
             const pollName = poll.name
-            const category = aggregateResults(votes)
+            const { category } = aggregateResults(votes)
             winResult = await fetchYelpBusiness(
                 address,
                 category,
@@ -195,6 +192,21 @@ module.exports = {
         const winningResults = completedPolls.map((poll) => poll.winResult)
         /* Return json response of Polls winResults */
         res.send({ polls: winningResults })
+    },
+
+    getCategoryCounts: async (req, res) => {
+        const pollId = req.params.id
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 199 ~ getCategoryCounts: ~ pollId',
+            pollId
+        )
+        const votes = await Votes.find({ pollId })
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 200 ~ getCategoryCounts: ~ votes',
+            votes
+        )
+        const { categoryCounts } = aggregateResults(votes)
+        res.send({ categoryCounts })
     },
 
     /* DELETE - Removes Poll with the associated Poll._id and author(User._id) */

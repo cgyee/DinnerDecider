@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Result from '../components/Result'
+import VoteCategoryTable from '../components/VoteCategoryTable'
 import { Container, Button, Row } from 'react-bootstrap'
 import { useAuth } from '../auth'
 
 const Results = (props) => {
     const history = useHistory()
+    const { id } = history.location.state
     const URI_STRING = `api/Poll/${history.location.pathname}`
     const [resturantInfo, setResturantInfo] = useState()
     const { isAuthenticated } = useAuth()
@@ -30,9 +32,13 @@ const Results = (props) => {
             <Row>
                 {resturantInfo && <Result {...resturantInfo} />}
                 {isAuthenticated() && (
-                    <Button variant="success" onClick={returnToDashboard}>
-                        Go Back <i className="far fa-arrow-alt-circle-left"></i>
-                    </Button>
+                    <>
+                        <VoteCategoryTable id={id} />
+                        <Button variant="success" onClick={returnToDashboard}>
+                            Go Back{' '}
+                            <i className="far fa-arrow-alt-circle-left"></i>
+                        </Button>
+                    </>
                 )}
             </Row>
         </Container>
