@@ -19,6 +19,9 @@ const Dashboard = () => {
     }
 
     const onChange = (e, cb) => cb(e.target.value)
+    const goToResults = (id) => {
+        history.push({ pathname: `/Results/${id}`, state: { id } })
+    }
     const getResturants = async () => {
         const response = await fetch(`/api/Poll/Results`, {
             ...options,
@@ -59,7 +62,6 @@ const Dashboard = () => {
             if (response.ok) {
                 setState(state.filter((poll) => poll._id != id))
             }
-            const data = await response.json()
         } catch (error) {
             console.log(
                 '🚀 ~ file: Dashboard.js ~ line 69 ~ deletePoll ~ error',
@@ -136,7 +138,10 @@ const Dashboard = () => {
                     >
                         <Result {...resturant} />
                         <div className="btn-group w-100">
-                            <button className="btn btn-success w-50">
+                            <button
+                                onClick={() => goToResults(resturant._id)}
+                                className="btn btn-success w-50"
+                            >
                                 <i className="fas fa-info-circle"></i>
                             </button>
                             <button

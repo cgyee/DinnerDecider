@@ -180,6 +180,10 @@ module.exports = {
     getResults: async (req, res) => {
         /* Create a variable called author an alias for User._id, using req.user.id */
         const author = req.user.id
+        console.log(
+            '🚀 ~ file: pollController.js ~ line 183 ~ getResults: ~ author',
+            author
+        )
         /* Find all Polls associated with author */
         const polls = await Polls.find({ author })
 
@@ -196,15 +200,7 @@ module.exports = {
 
     getCategoryCounts: async (req, res) => {
         const pollId = req.params.id
-        console.log(
-            '🚀 ~ file: pollController.js ~ line 199 ~ getCategoryCounts: ~ pollId',
-            pollId
-        )
         const votes = await Votes.find({ pollId })
-        console.log(
-            '🚀 ~ file: pollController.js ~ line 200 ~ getCategoryCounts: ~ votes',
-            votes
-        )
         const { categoryCounts } = aggregateResults(votes)
         res.send({ categoryCounts })
     },

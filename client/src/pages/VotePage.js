@@ -219,7 +219,8 @@ const VotePage = (props) => {
             const response = await fetch(`/api${URI}`, {
                 method: 'PUT',
                 mode: 'cors',
-                headers: { 'Content-type': 'Application/json' }
+                headers: { 'Content-type': 'Application/json' },
+                body: JSON.stringify({ categories })
             })
             const data = await response.json()
             if (isAuthenticated()) {

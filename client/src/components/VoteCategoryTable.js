@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, ListGroup } from 'react-bootstrap'
+import { Row, Col, ListGroup } from 'react-bootstrap'
 
 const VoteCategoryTable = (props) => {
     const { id } = props
@@ -7,22 +7,19 @@ const VoteCategoryTable = (props) => {
     const [categoryCounts, setCategoryCounts] = useState([])
 
     const getPollCategoryInfo = async () => {
+        const url = `/api/Poll/Results/count/${id}`
         try {
-            const response = await fetch(`/api/Results/count/${id}`, {
+            const response = await fetch(url, {
                 method: 'GET',
                 mode: 'cors'
             })
-            console.log(
-                '🚀 ~ file: VoteCategoryTable.js ~ line 15 ~ getPollCategoryInfo ~ response',
-                response
-            )
-
             if (response.ok) {
                 const data = await response.json()
                 const { categoryCounts } = data
-                categoryCounts &&
-                    setCategoryNames(Object.keys(categoryCounts)) &&
+                if (categoryCounts) {
+                    setCategoryNames(Object.keys(categoryCounts))
                     setCategoryCounts(Object.values(categoryCounts))
+                }
             }
         } catch (error) {
             console.log(error)
@@ -30,24 +27,28 @@ const VoteCategoryTable = (props) => {
     }
 
     useEffect(() => {
-        getPollCategoryInfo()
+        id && getPollCategoryInfo()
     }, [])
     return (
         <Row>
-            <ListGroup>
-                {categoryNames.map((category, i) => (
-                    <ListGroup.Item key={`name-${id}-${i}`}>
-                        {category}
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
-            <ListGroup>
-                {categoryCounts.map((count, i) => (
-                    <ListGroup.Item key={`count-${id}-{i}`}>
-                        {count}
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
+            <Col className="mb-3">
+                <ListGroup>
+                    {categoryNames.map((category, i) => (
+                        <ListGroup.Item key={`name-${id}-${i}`}>
+                            {category}
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+            </Col>
+            <Col>
+                <ListGroup>
+                    {categoryCounts.map((count, i) => (
+                        <ListGroup.Item key={`count-${id}-{i}`}>
+                            {count}
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+            </Col>
         </Row>
     )
 }

@@ -8,7 +8,7 @@ import { useAuth } from '../auth'
 const Results = (props) => {
     const history = useHistory()
     const { id } = history.location.state
-    const URI_STRING = `api/Poll/${history.location.pathname}`
+    const URI_STRING = `api/Poll${history.location.pathname}`
     const [resturantInfo, setResturantInfo] = useState()
     const { isAuthenticated } = useAuth()
 

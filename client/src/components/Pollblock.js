@@ -19,7 +19,9 @@ const PollBlock = (props) => {
         ;(async () => {
             const response = await fetch(`/api/Vote/${props._id}/count`, {
                 method: 'GET',
-                mode: 'cors'
+                mode: 'cors',
+                credentials: 'include',
+                headers: { 'Content-type': 'Application/json' }
             })
             const data = await response.json()
             setCount(data.count)

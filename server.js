@@ -59,7 +59,7 @@ if (process.env.production) {
 
 /* This is where our authentication routes and api routes are */
 app.use('/auth', authRoutes)
-app.use('/api/', apiRoutes)
+app.use('/api', apiRoutes)
 
 /* Creating a new schema based on the  type pollQueryType */
 const schema = new GraphQLSchema({ query: pollQueryType })

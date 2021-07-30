@@ -50,13 +50,6 @@ function App() {
                             path="/Results"
                             render={(routeProps) => <Results {...routeProps} />}
                         ></Route>
-                        {/* Update me when name is changed! */}
-                        {/* <Route
-                    path="/Callvotes"
-                    render={(routeProps) => (
-                        <PollCountPage {...routeProps} />
-                    )}
-                ></Route> */}
                     </Switch>
                 </Router>
             </div>
