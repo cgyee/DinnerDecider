@@ -7,7 +7,6 @@ import { useAuth } from '../auth'
 
 const Results = (props) => {
     const history = useHistory()
-    const { id } = history.location.state
     const URI_STRING = `api/Poll${history.location.pathname}`
     const [resturantInfo, setResturantInfo] = useState()
     const { isAuthenticated } = useAuth()
@@ -31,9 +30,9 @@ const Results = (props) => {
         <Container>
             <Row>
                 {resturantInfo && <Result {...resturantInfo} />}
-                {isAuthenticated() && (
+                {resturantInfo && isAuthenticated() && (
                     <>
-                        <VoteCategoryTable id={id} />
+                        {<VoteCategoryTable id={resturantInfo._id} />}
                         <Button variant="success" onClick={returnToDashboard}>
                             Go Back{' '}
                             <i className="far fa-arrow-alt-circle-left"></i>
